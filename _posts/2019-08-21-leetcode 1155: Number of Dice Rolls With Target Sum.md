@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      leetcode 1155 \: Number of Dice Rolls With Target Sum
+title:      leetcode 1155 - Number of Dice Rolls With Target Sum
 subtitle:   动态规划学习笔记
 date:       2019-08-21
 author:     yangwf

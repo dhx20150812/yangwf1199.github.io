@@ -4,8 +4,11 @@ title:      Leetcode递归题解
 subtitle:   递归
 date:       2019-11-14
 author:     dhx20150812
-header-img: "https://assets.leetcode.com/uploads/2018/10/22/robot_maze.png"
-
+header-img: img/post-bg-ios9-web.jpg
+catalog: true
+tags:
+    - Leetcode
+    - Recursive
 ---
 
 

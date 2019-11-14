@@ -1,12 +1,13 @@
 ---
 layout:     post
 title:      Leetcode递归题解
-subtitle:   Leetcode递归
+subtitle:   递归
 date:       2019-11-14
 author:     dhx20150812
-header-img: img/tag-bg.jpg
+header-img: "https://assets.leetcode.com/uploads/2018/10/22/robot_maze.png"
 
 ---
+
 
 # 938. Range Sum of BST
 

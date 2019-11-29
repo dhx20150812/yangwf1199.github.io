@@ -1,3 +1,15 @@
+---
+layout:     post
+title:      论文笔记
+subtitle:   Seq2Emo
+date:       2019-11-29
+author:     dhx20150812
+header-img: img/post-bg-ios9-web.jpg
+catalog: true
+tags:
+    - Paper Reading
+---
+
 # Seq2Emo for Multi-label Emotion Classification Based on Latent Variable Chains Transformation
 
 > 来自AAAI 2020 [https://arxiv.org/pdf/1911.02147.pdf](https://arxiv.org/pdf/1911.02147.pdf)

@@ -44,7 +44,7 @@ $$
 
 ### Sequence Decoder $\mathcal{D}_1$
 
-给定编码器 $\mathcal{E}$ 的隐层状态向量 $(h_1,\cdots,h_m)$，序列解码器 $\mathcal{D_1}$ 像标准的 Seq2Seq 模型一样解码。此处作者使用了注意力机制，在$t+1$时刻的隐层状态$\hat{h}_{t+1}$ 通过如下的计算得到：
+给定编码器 $\mathcal{E}$ 的隐层状态向量 $(h_1,\cdots,h_m)$，序列解码器 $\mathcal{D\_1}$ 像标准的 Seq2Seq 模型一样解码。此处作者使用了注意力机制，在 $t+1$ 时刻的隐层状态 $\hat{h}\_{t+1}$ 通过如下的计算得到：
 
 $$
 \begin{aligned} e_{t, i} &=\boldsymbol{v}_{a}^{T} \tanh \left(\boldsymbol{W}_{a} \hat{s}_{t}+\boldsymbol{U}_{a} h_{i}\right) \\ \alpha_{t, i} &=\frac{\exp \left(e_{t, i}\right)}{\sum_{j=1}^{m} \exp \left(e_{t, j}\right)} \\ c_{t} &=\sum_{i=1}^{m} \alpha_{t, i} h_{i} \\ \hat{s}_{t+1} &=\mathrm{LSTM}\left(\hat{s}_{t},\left[e\left(y_{t}\right) ; c_{t}\right]\right) \end{aligned}

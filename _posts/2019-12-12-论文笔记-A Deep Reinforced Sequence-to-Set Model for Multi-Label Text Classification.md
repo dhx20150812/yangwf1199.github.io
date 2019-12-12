@@ -2,6 +2,7 @@
 layout:     post
 title:      论文笔记
 subtitle:   A Deep Reinforced Sequence-to-Set Model for Multi-Label Text Classification
+date:       2019-12-12
 author:     dhx20150812
 header-img: img/post-bg-ios9-web.jpg
 catalog: true

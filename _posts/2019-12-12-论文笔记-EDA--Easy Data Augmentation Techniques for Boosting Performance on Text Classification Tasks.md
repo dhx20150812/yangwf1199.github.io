@@ -13,8 +13,8 @@ tags:
 ---
 
 
-# EDA: Easy Data Augmentation Techniques for Boosting Performance on Text Classification Tasks
 
+# EDA: Easy Data Augmentation Techniques for Boosting Performance on Text Classification Tasks
 
 
 >   来自EMNLP 2019 short paper，https://arxiv.org/abs/1901.11196.pdf

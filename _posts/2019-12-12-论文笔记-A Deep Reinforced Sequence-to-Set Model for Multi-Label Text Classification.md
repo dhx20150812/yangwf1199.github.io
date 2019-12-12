@@ -40,7 +40,7 @@ $$
 \begin{array}{l}{\vec{h}_{i}=\overrightarrow{\operatorname{LSTM}}\left(\overrightarrow{h}_{i-1}, x_{i}\right)} \\ {\overleftarrow{h}_{i}=\overleftarrow{\operatorname{LSTM}}\left(\overleftarrow{h}_{i+1}, x_{i}\right)}\end{array}
 $$
 
-最终第 $i$ 个词的隐层状态是将这两者拼接在一起。h_i=\left[\overrightarrow{h}\_{i-1}; \overleftarrow{h}\_{i-1}\right]。
+最终第 $i$ 个词的隐层状态是将这两者拼接在一起。$h\_i=\left[\overrightarrow{h}\_{i-1}; \overleftarrow{h}\_{i-1}\right]$。
 
 ### Sequence Decoder $\mathcal{D}_1$
 
@@ -56,7 +56,7 @@ $$
 \begin{array}{l}{o_{t}=\boldsymbol{W}_{o} f\left(\boldsymbol{W}_{d} \hat{s}_{t}+\boldsymbol{V}_{d} c_{t}\right)} \\ {y_{t} \sim \operatorname{softmax}\left(o_{t}+I_{t}\right)}\end{array}
 $$
 
-其中，$\boldsymbol{W}_{o}$、$\boldsymbol{W}_{d}$ 和 $\boldsymbol{V}_{d}$ 是权重参数。$I_t \in \mathbb{R}^L$ 是 mask 向量，它的作用是防止序列解码器 $\mathcal{D}_1$ 生成重复的标签，$f$ 是一个非线性函数。
+其中，$\boldsymbol{W}\_{o}$、$\boldsymbol{W}\_{d}$ 和 $\boldsymbol{V}\_{d}$ 是权重参数。$I\_t \in \mathbb{R}^L$ 是 mask 向量，它的作用是防止序列解码器 $\mathcal{D}\_1$ 生成重复的标签，$f$ 是一个非线性函数。
 
 $$
 \left(I_{t}\right)_{i}=\left\{\begin{array}{l}{-\infty} ~~~~~~~~~~~~\text{if the $i$-th label has been predicted}\\ {0} ~~~~~~~~~~~~~~~~~\text{otherwise}\end{array}\right.
@@ -65,19 +65,19 @@ $$
 
 ### Set decoder $\mathcal{D}_2$
 
-集合解码器 $\mathcal{D}_2$ 是整个模型的核心部分，它的目标是捕获标签之间的联系，并且避免标签顺序之间的强烈依赖。在序列解码器 $\mathcal{D}_1$ 生成对应的隐层状态序列之后，集合解码器 $\mathcal{D}_2$ 根据 $\mathcal{D}_1$ 的隐层状态序列来生成更准确的标签。
+集合解码器 $\mathcal{D}\_2$ 是整个模型的核心部分，它的目标是捕获标签之间的联系，并且避免标签顺序之间的强烈依赖。在序列解码器 $\mathcal{D}\_1$ 生成对应的隐层状态序列之后，集合解码器 $\mathcal{D}\_2$ 根据 $\mathcal{D}\_1$ 的隐层状态序列来生成更准确的标签。
 
-给定编码器 $\mathcal{E}$ 的隐层状态序列向量 $(h_1,\cdots,h_m)$ 和序列解码器 $\mathcal{D}_1$ 的隐层状态序列 $\left(\hat{s}_{0}, \cdots, \hat{s}_{n}\right)$，分别对其使用注意力机制计算得到两个上下文向量——分别是编码器上下文向量 $c_t^e$ 和序列解码器上下文向量 $c_t^d$ 。集合解码器 $\mathcal{D}_2$ 在 $t+1$ 时刻的隐层状态由如下计算得到：
+给定编码器 $\mathcal{E}$ 的隐层状态序列向量 $(h\_1,\cdots,h\_m)$ 和序列解码器 $\mathcal{D}\_1$ 的隐层状态序列 $\left(\hat{s}\_{0}, \cdots, \hat{s}\_{n}\right)$，分别对其使用注意力机制计算得到两个上下文向量——分别是编码器上下文向量 $c\_t^e$ 和序列解码器上下文向量 $c\_t^d$ 。集合解码器 $\mathcal{D}\_2$ 在 $t+1$ 时刻的隐层状态由如下计算得到：
 
 $$
 s_{t+1}=\operatorname{LSTM}\left(s_{t},\left[e\left(y_{t}\right) ; c_{t}^{e} ; c_{t}^{d}\right]\right)
 $$
 
-同时这里也使用了与序列解码器 $\mathcal{D}_1$ 相似的 mask 向量和 softmax 层。
+同时这里也使用了与序列解码器 $\mathcal{D}\_1$ 相似的 mask 向量和 softmax 层。
 
 ## Training and Testing
 
-为了更好地使模型摆脱对标签顺序的依赖，作者从强化学习的角度对多标签分类任务进行建模。此时，模型中的集合解码器 $\mathcal{D}_2$ 是 agent，在 $t$ 时刻的 state 是已经生成的标签 $(y_0,\cdots,y_{t-1})$，action 是下一时刻生成的标签。当生成完一个完整的标签子集 $\boldsymbol{y}$ 时，agent $\mathcal{D}_2$ 会得到一个reward $r$，训练的目标是最小化负期望reward——
+为了更好地使模型摆脱对标签顺序的依赖，作者从强化学习的角度对多标签分类任务进行建模。此时，模型中的集合解码器 $\mathcal{D}\_2$ 是 agent，在 $t$ 时刻的 state 是已经生成的标签 $(y\_0,\cdots,y\_{t-1})$，action 是下一时刻生成的标签。当生成完一个完整的标签子集 $\boldsymbol{y}$ 时，agent $\mathcal{D}\_2$ 会得到一个reward $r$，训练的目标是最小化负期望reward——
 
 $$
 L(\theta)=-\mathbb{E}_{\boldsymbol{y} \sim p_{\theta}}[r(\boldsymbol{y})]
@@ -93,7 +93,7 @@ $$
 \nabla_{\theta} L(\theta) \approx-\left[r\left(\boldsymbol{y}^{s}\right)-r\left(\boldsymbol{y}^{g}\right)\right] \nabla_{\theta} \log \left(p_{\theta}\left(\boldsymbol{y}^{s}\right)\right)
 $$
 
-其中，$\boldsymbol{y}^s$ 是从概率分布 $p_{\theta}$ 中采样得到的标签序列，$\boldsymbol{y}^g$ 是使用贪心算法得到的标签序列。
+其中，$\boldsymbol{y}^s$ 是从概率分布 $p\_{\theta}$ 中采样得到的标签序列，$\boldsymbol{y}^g$ 是使用贪心算法得到的标签序列。
 
 ### Reward Design
 
@@ -107,13 +107,13 @@ $$
 
 ### Training Objective
 
-序列解码器 $\mathcal{D}_1$ 的训练目标是最大化标签序列的条件概率——
+序列解码器 $\mathcal{D}\_1$ 的训练目标是最大化标签序列的条件概率——
 
 $$
 L(\phi)=-\sum_{t=0}^{n} \log \left(p\left(y_{t}^{*} | \boldsymbol{y}_{<t}^{*}, \boldsymbol{x}\right)\right)
 $$
 
-其中，$\phi$ 代表 $\mathcal{D}_1$ 的参数，$\boldsymbol{y}_{<t}^{*}$ 代表了序列 $\left(y_{0}^{*}, \cdots, y_{t-1}^{*}\right)$。最终的目标函数如下：
+其中，$\phi$ 代表 $\mathcal{D}\_1$ 的参数，$\boldsymbol{y}\_{<t}^{*}$ 代表了序列 $\left(y\_{0}^{*}, \cdots, y\_{t-1}^{*}\right)$。最终的目标函数如下：
 
 $$
 L_{t o t a l}=(1-\lambda) L(\phi)+\lambda L(\theta)

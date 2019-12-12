@@ -10,18 +10,6 @@ tags:
     - 多标签分类
 ---
 
-<head>
-    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-    <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({
-            tex2jax: {
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-            inlineMath: [['$','$']]
-            }
-        });
-    </script>
-</head>
-
 # A Deep Reinforced Sequence-to-Set Model for Multi-Label Text Classification
 
 
@@ -41,7 +29,7 @@ tags:
 
 ![image-20191202165111911](https://note.youdao.com/yws/api/personal/file/WEB120050cd87b594eb43aa75b1be41ee59?method=download&shareKey=428cbe9227625d2e7766c357ff3ce9bc)
 
-如图所示，整个模型有一个编码器 $\mathcal{E}$ 和两个解码器 $\mathcal{D}_1$ 和 $\mathcal{D}_2$。给定输入文本序列 $x$，编码器 $\mathcal{E}$ 和序列解码器 $\mathcal{D}_1$ 联合工作，将其编码为隐层表示 $\hat{s}=\left(\hat{s}_{0}, \hat{s}_{1}, \cdots, \hat{s}_{n}\right)$，它的目的是学习符合可能的人类先验知识的初步标签顺序。然后集合解码器 $\mathcal{D}_2$ 将编码器 $\mathcal{E}$ 和序列解码器 $\mathcal{D}_1$ 的隐层状态作为输入，产生最终的预测标签集合。在这过程中使用带有 self-critical 训练的策略梯度方法来减少模型对标签顺序的依赖性。
+如图所示，整个模型有一个编码器 $\mathcal{E}$ 和两个解码器 $\mathcal{D}_1$$ 和 $$\mathcal{D}_2$$。给定输入文本序列 $x$，编码器  $\mathcal{E}$ 和序列解码器 $\mathcal{D}_1$ 联合工作，将其编码为隐层表示 $\hat{s}=\left(\hat{s}_{0}, \hat{s}_{1}, \cdots, \hat{s}_{n}\right)$，它的目的是学习符合可能的人类先验知识的初步标签顺序。然后集合解码器 $\mathcal{D}_2$ 将编码器 $\mathcal{E}$ 和序列解码器 $\mathcal{D}_1$ 的隐层状态作为输入，产生最终的预测标签集合。在这过程中使用带有 self-critical 训练的策略梯度方法来减少模型对标签顺序的依赖性。
 
 ### Encoder $\mathcal{E}$
 

@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      论文笔记
-subtitle:   EDA: Easy Data Augmentation Techniques for Boosting Performance on Text Classification Tasks
+subtitle:   EDA Easy Data Augmentation Techniques for Boosting Performance on Text Classification Tasks
 date:       2019-12-12
 author:     dhx20150812
 header-img: img/post-bg-ios9-web.jpg
@@ -11,7 +11,6 @@ tags:
     - NLP
     - 数据增强
 ---
-
 
 
 

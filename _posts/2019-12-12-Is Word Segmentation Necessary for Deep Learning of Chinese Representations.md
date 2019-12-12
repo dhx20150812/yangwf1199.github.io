@@ -1,3 +1,16 @@
+---
+layout:     post
+title:      论文笔记
+subtitle:   Is Word Segmentation Necessary for Deep Learning of Chinese Representations？
+date:       2019-12-12
+author:     dhx20150812
+header-img: img/post-bg-ios9-web.jpg
+catalog: true
+tags:
+    - NLP
+    - CWS
+---
+
 # Is Word Segmentation Necessary for Deep Learning of Chinese Representations?
 
 >   来自ACL 2019，https://www.aclweb.org/anthology/P19-1314.pdf

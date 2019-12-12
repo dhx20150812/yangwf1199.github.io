@@ -39,7 +39,7 @@ $$
 \begin{array}{l}{\vec{h}_{i}=\overrightarrow{\operatorname{LSTM}}\left(\overrightarrow{h}_{i-1}, x_{i}\right)} \\ {\overleftarrow{h}_{i}=\overleftarrow{\operatorname{LSTM}}\left(\overleftarrow{h}_{i+1}, x_{i}\right)}\end{array}
 $$
 
-最终第 $i$ 个词的隐层状态是将这两者拼接在一起。$h_i=\left[\overrightarrow{h}_{i-1};\overleftarrow{h}_{i-1}\right]$。
+最终第 $i$ 个词的隐层状态是将这两者拼接在一起。h_i=[\overrightarrow{h}_{i-1}; \overleftarrow{h}_{i-1}]。
 
 ### Sequence Decoder $\mathcal{D}_1$
 

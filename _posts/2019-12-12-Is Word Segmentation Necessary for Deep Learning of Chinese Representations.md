@@ -8,7 +8,7 @@ header-img: img/post-bg-ios9-web.jpg
 catalog: true
 tags:
     - NLP
-    - CWS
+    - 分词技术
 ---
 
 # Is Word Segmentation Necessary for Deep Learning of Chinese Representations?

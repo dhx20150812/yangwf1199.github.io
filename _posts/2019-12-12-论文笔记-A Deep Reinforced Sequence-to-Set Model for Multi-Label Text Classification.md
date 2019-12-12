@@ -113,7 +113,7 @@ $$
 L(\phi)=-\sum_{t=0}^{n} \log \left(p\left(y_{t}^{*} | \boldsymbol{y}_{<t}^{*}, \boldsymbol{x}\right)\right)
 $$
 
-其中，$\phi$ 代表 $\mathcal{D}\_1$ 的参数，$\boldsymbol{y}\_{<t}^{*}$ 代表了序列 $\left(y\_{0}^{*}, \cdots, y\_{t-1}^{*}\right)$。最终的目标函数如下：
+其中，$\phi$ 代表 $\mathcal{D}\_1$ 的参数，$\boldsymbol{y}\_{<t}^{\*}$ 代表了序列 $\left(y\_{0}^{\*}, \cdots, y\_{t-1}^{\*}\right)$。最终的目标函数如下：
 
 $$
 L_{t o t a l}=(1-\lambda) L(\phi)+\lambda L(\theta)

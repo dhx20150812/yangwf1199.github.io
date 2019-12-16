@@ -12,8 +12,6 @@ tags:
     - 对话系统
 ---
 
-[toc]
-
 # Improving Multi-turn Dialogue Modelling with Utterance ReWriter
 
 >来自ACL 2019，https://arxiv.org/pdf/1906.07004.pdf
@@ -65,41 +63,53 @@ tags:
 
 
 我们先将 $(H,U_n)$ 中的所有token全部展开为 $(w_1,w_2,\cdots,w_m)$，$m$ 是整个对话中token的数量。每两轮对话的token之间插入一个终止符。作者将整个token序列输入到Transformer中，对于每个token而言，输入的embedding向量是词嵌入、位置嵌入和轮数嵌入三者之和：
+
 $$
 I\left(w_{i}\right)=W E\left(w_{i}\right)+P E\left(w_{i}\right)+T E\left(w_{i}\right)
 $$
+
 词嵌入 $WE(w_i)$ 和位置嵌入 $PE(w_i)$ 与Transformer结构中的一致。作者加入了一个轮数嵌入 $TE(w_i)$ 来指示当前这个token来自哪一轮。因此同一轮的token会共享同样的轮数嵌入。
 
 然后输入的embedding会被输入到 $L$ 层堆叠的Encoder中来获得最终的编码表示，每一个Encoder都包含了self-attention层和前向神经网络层：
+
 $$
 \begin{aligned} \mathbf{E}^{(0)} &=\left[I\left(w_{1}\right), I\left(w_{2}\right), \ldots, I\left(w_{m}\right)\right] \\ \mathbf{E}^{(l)}=& \text { FNN }\left(\text { MultiHead }\left(\mathbf{E}^{(l-1)}, \mathbf{E}^{(l-1)}, \mathbf{E}^{(l-1)}\right)\right) \end{aligned}
 $$
+
 最终的编码来自第 $L$ 层编码器的输出。
 
 ### Decoder
 
 Decoder同样包含了 $L$ 层，每层由三个子层组成。第一层是multi-head self-attention层：
+
 $$
 \mathbf{M}^{l}=\text { MultiHead }\left(\mathbf{D}^{(l-1)}, \mathbf{D}^{(l-1)}, \mathbf{D}^{(l-1)}\right)
 $$
+
 而初始时刻有 $\mathbf{D}^{(0)}=R$。
 
 第二层是encoder-decoder attention，它的作用是将encoder的信息融入到decoder中。由于在这个任务中，对话历史 $H$ 和当前utterance $U_n$ 作用是不同的。因此，作者对其分别构造了key-value矩阵。Encoder最后部分的输出 $\mathbf{E}^{(L)}$ 被分为两个部分 $\mathbf{E}^{(L)}_{(H)}$ 和 $\mathbf{E}^{(L)}_{(U_n)}$，于是encoder-decoder向量由下面计算得到：
+
 $$
 \begin{aligned} \mathbf{C}(H)^{l} &=\text { MultiHead }\left(\mathbf{M}^{(l)}, \mathbf{E}_{H}^{(L)}, \mathbf{E}_{H}^{(L)}\right) \\ \mathbf{C}\left(U_{n}\right)^{l} &=\text { MultiHead }\left(\mathbf{M}^{(l)}, \mathbf{E}_{U_{n}}^{(L)}, \mathbf{E}_{U_{n}}^{(L)}\right) \end{aligned}
 $$
+
 第三层是一个全连接网络：
+
 $$
 \mathbf{D}^{(l)}=\operatorname{FNN}\left(\left[\mathbf{C}(H)^{l} \circ \mathbf{C}\left(U_{n}\right)^{l}\right]\right)
 $$
+
 $\circ$ 表示向量拼接。
 
 ### 输出分布
 
 在解码阶段，我们希望模型能够学习到在不同的时刻如何从 $H$ 或 $U_n$ 中复制单词。因此，作者引入了一个soft gating权重 $\lambda$ 来做决策。解码概率的计算结合了最后一层的attention分布：
+
 $$
 p\left(R_{t}=w | H, U_{n}, R_{<t}\right)=\lambda  \sum_{i:\left(w_{i}=w\right) \wedge\left(w_{i} \in \mathrm{H}\right)} a_{t, i} \\+(1-\lambda)  \sum_{j:\left(w_{j}=w\right) \backslash\left(w_{j} \in U_{n}\right)} a_{t, j}^{\prime} \\ a= \text { Attention }\left(\mathbf{M}^{(L)}, \mathbf{E}_{U_{n}}^{(L)}\right) \\ a^{\prime}= \text { Attention }\left(\mathbf{M}^{(L)}, \mathbf{E}_{H}^{(L)}\right) \\ \lambda=\sigma\left(\boldsymbol{w}_{d}^{\top} \mathbf{D}_{t}^{L}+\boldsymbol{w}_{H}^{\top} \mathbf{C}(H)_{t}^{L}+\boldsymbol{w}_{U}^{\top} \mathbf{C}\left(U_{n}\right)_{t}^{L}\right)
 $$
+
 $\alpha$ 和 $\alpha^{'}$ 分别是 $H$ 和 $U_n$ 中关于token的attention分布，$\boldsymbol{w}_{d}$、$\boldsymbol{w}_{H}$和$\boldsymbol{w}_{U}$ 是需要学习的参数，$\sigma$ 是sigmoid函数。
 
 gating权重 λ 就像哨兵一样，告诉解码器是从对话历史记录 $H$ 中提取信息还是直接从 $U_n$ 中复制。如果 $U_n$ 中既不包含指代也不包含信息遗漏，那么 $\lambda$ 一直为1，直接从 $U_n$ 中拷贝；否则 $\lambda$ 为0，attention机制就起作用了，选择何时从原句子拷贝，何时从对话历史拷贝。

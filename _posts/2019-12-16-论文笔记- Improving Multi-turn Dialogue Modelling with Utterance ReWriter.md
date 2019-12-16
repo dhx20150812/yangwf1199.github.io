@@ -88,7 +88,7 @@ $$
 
 而初始时刻有 $\mathbf{D}^{(0)}=R$。
 
-第二层是encoder-decoder attention，它的作用是将encoder的信息融入到decoder中。由于在这个任务中，对话历史 $H$ 和当前utterance $U_n$ 作用是不同的。因此，作者对其分别构造了key-value矩阵。Encoder最后部分的输出 $\mathbf{E}^{(L)}$ 被分为两个部分 $\mathbf{E}^{(L)}_{(H)}$ 和 $\mathbf{E}^{(L)}_{(U_n)}$，于是encoder-decoder向量由下面计算得到：
+第二层是encoder-decoder attention，它的作用是将encoder的信息融入到decoder中。由于在这个任务中，对话历史 $H$ 和当前utterance $U_n$ 作用是不同的。因此，作者对其分别构造了key-value矩阵。Encoder最后部分的输出 $\mathbf{E}^{(L)}$ 被分为两个部分 $\mathbf{E}^{(L)}\_{(H)}$ 和 $\mathbf{E}^{(L)}\_{(U_n)}$，于是encoder-decoder向量由下面计算得到：
 
 $$
 \begin{aligned} \mathbf{C}(H)^{l} &=\text { MultiHead }\left(\mathbf{M}^{(l)}, \mathbf{E}_{H}^{(L)}, \mathbf{E}_{H}^{(L)}\right) \\ \mathbf{C}\left(U_{n}\right)^{l} &=\text { MultiHead }\left(\mathbf{M}^{(l)}, \mathbf{E}_{U_{n}}^{(L)}, \mathbf{E}_{U_{n}}^{(L)}\right) \end{aligned}
@@ -110,7 +110,7 @@ $$
 p\left(R_{t}=w | H, U_{n}, R_{<t}\right)=\lambda  \sum_{i:\left(w_{i}=w\right) \wedge\left(w_{i} \in \mathrm{H}\right)} a_{t, i} \\+(1-\lambda)  \sum_{j:\left(w_{j}=w\right) \backslash\left(w_{j} \in U_{n}\right)} a_{t, j}^{\prime} \\ a= \text { Attention }\left(\mathbf{M}^{(L)}, \mathbf{E}_{U_{n}}^{(L)}\right) \\ a^{\prime}= \text { Attention }\left(\mathbf{M}^{(L)}, \mathbf{E}_{H}^{(L)}\right) \\ \lambda=\sigma\left(\boldsymbol{w}_{d}^{\top} \mathbf{D}_{t}^{L}+\boldsymbol{w}_{H}^{\top} \mathbf{C}(H)_{t}^{L}+\boldsymbol{w}_{U}^{\top} \mathbf{C}\left(U_{n}\right)_{t}^{L}\right)
 $$
 
-$\alpha$ 和 $\alpha^{'}$ 分别是 $H$ 和 $U_n$ 中关于token的attention分布，$\boldsymbol{w}_{d}$、$\boldsymbol{w}_{H}$和$\boldsymbol{w}_{U}$ 是需要学习的参数，$\sigma$ 是sigmoid函数。
+$\alpha$ 和 $\alpha^{'}$ 分别是 $H$ 和 $U_n$ 中关于token的attention分布，$\boldsymbol{w}\_{d}$、$\boldsymbol{w}\_{H}$和$\boldsymbol{w}\_{U}$ 是需要学习的参数，$\sigma$ 是sigmoid函数。
 
 gating权重 λ 就像哨兵一样，告诉解码器是从对话历史记录 $H$ 中提取信息还是直接从 $U_n$ 中复制。如果 $U_n$ 中既不包含指代也不包含信息遗漏，那么 $\lambda$ 一直为1，直接从 $U_n$ 中拷贝；否则 $\lambda$ 为0，attention机制就起作用了，选择何时从原句子拷贝，何时从对话历史拷贝。
 

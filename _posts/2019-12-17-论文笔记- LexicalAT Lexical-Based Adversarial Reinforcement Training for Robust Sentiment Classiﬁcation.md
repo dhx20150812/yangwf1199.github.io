@@ -2,7 +2,7 @@
 layout:     post
 title:      论文笔记
 subtitle:   LexicalAT Lexical-Based Adversarial Reinforcement Training for Robust Sentiment Classiﬁcation
-date:       2019-04-13
+date:       2019-12-17
 author:     dhx20150812
 header-img: img/post-bg-ios9-web.jpg
 catalog: true

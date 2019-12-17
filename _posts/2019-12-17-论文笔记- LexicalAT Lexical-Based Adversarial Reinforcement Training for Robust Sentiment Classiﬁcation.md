@@ -74,16 +74,16 @@ $$
 然后将真实的样本和生成的样本同时送入分类器，得到替换的 reward $r(\hat{\boldsymbol{a}})$。我们将 reward 定义为真实样本和生成样本之间的概率 $y$ 的绝对值之差：
 
 $$
-r(\hat{\boldsymbol{a}})=\log p_{\mathbf{C}}(y | \boldsymbol{x} ; \boldsymbol{\phi})-\log p_{\mathbf{C}}(y | \hat{\boldsymbol{x}} ; \boldsymbol{\phi})
+r(\hat{\boldsymbol{a}})=\log p_{\mathbf{C}}(y \mid \boldsymbol{x} ; \boldsymbol{\phi})-\log p_{\mathbf{C}}(y \mid \hat{\boldsymbol{x}} ; \boldsymbol{\phi})
 $$
 
 其中 $\boldsymbol{\phi}$ 是分类器的参数。在实际中，作者使用了如下公式来获得 reward，稳定地训练生成器：
 
 $$
-r^{\prime}(\hat{\boldsymbol{a}})=r(\hat{\boldsymbol{a}})-\mathbb{E}_{P_{G}(\boldsymbol{a} | \boldsymbol{x}, \boldsymbol{\theta})}(r(\boldsymbol{a}))
+r^{\prime}(\hat{\boldsymbol{a}})=r(\hat{\boldsymbol{a}})-\mathbb{E}_{P_{G}(\boldsymbol{a} \mid \boldsymbol{x}, \boldsymbol{\theta})}(r(\boldsymbol{a}))
 $$
 
-其中 $\mathbb{E}_{P_{G}(\boldsymbol{a} | \boldsymbol{x}, \boldsymbol{\theta})}(r(\boldsymbol{a}))$ 是 $r(\boldsymbol{a})$ 的期望。
+其中 $\mathbb{E}_{P_{G}(\boldsymbol{a} \mid \boldsymbol{x}, \boldsymbol{\theta})}(r(\boldsymbol{a}))$ 是 $r(\boldsymbol{a})$ 的期望。
 
 然后，reward 被返回给生成器，参数 $\boldsymbol{\theta}$ 的期望梯度可以近似为：
 

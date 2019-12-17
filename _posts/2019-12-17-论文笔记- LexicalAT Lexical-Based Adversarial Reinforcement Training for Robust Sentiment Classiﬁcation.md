@@ -55,7 +55,7 @@ tags:
 
 ### 分类器
 
-这篇论文重点关注单分类。输入是一个词序列，输出是一个预定义的标签集合中的一个标签 $Y=\left\{y_{1}, y_{2}, \cdots, y_{k}\right\}$。
+这篇论文重点关注单分类。输入是一个词序列，输出是一个预定义的标签集合中的一个标签 $Y=\left\{y\_{1}, y\_{2}, \cdots, y\_{k}\right\}$。
 
 作者使用了三种经典的情感分类模型——CNN、RNN和BERT。
 
@@ -83,7 +83,7 @@ $$
 r^{\prime}(\hat{\boldsymbol{a}})=r(\hat{\boldsymbol{a}})-\mathbb{E}_{P_{G}(\boldsymbol{a} \mid \boldsymbol{x}, \boldsymbol{\theta})}(r(\boldsymbol{a}))
 $$
 
-其中 $\mathbb{E}_{P_{G}(\boldsymbol{a} \mid \boldsymbol{x}, \boldsymbol{\theta})}(r(\boldsymbol{a}))$ 是 $r(\boldsymbol{a})$ 的期望。
+其中 $\mathbb{E}\_{P_{G}(\boldsymbol{a} \mid \boldsymbol{x}, \boldsymbol{\theta})}(r(\boldsymbol{a}))$ 是 $r(\boldsymbol{a})$ 的期望。
 
 然后，reward 被返回给生成器，参数 $\boldsymbol{\theta}$ 的期望梯度可以近似为：
 

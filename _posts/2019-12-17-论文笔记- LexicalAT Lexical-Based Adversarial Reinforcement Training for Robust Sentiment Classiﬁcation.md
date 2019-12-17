@@ -51,7 +51,7 @@ tags:
 
 <img src="https://note.youdao.com/yws/api/personal/file/WEBf8fbb74d02678ae8ea5ff1cfc95bbdb1?method=download&shareKey=85fd3c41b704c06354c95578cb2409aa" alt="image-20191217204212918" style="zoom: 50%;" />
 
-对于一个单词序列 $\boldsymbol{x}=\left\{x_{1}, x_{2}, \cdots, x_{n}\right\}$，$n$ 是输入文本的长度。模型会生成一个替换行为的序列 $\boldsymbol{a}=\left\{a_{1}, a_{2}, \cdots, a_{n}\right\}$，然后由 $\boldsymbol{x}$ 和 $\boldsymbol{a}$ 生成新的句子。由于作者提出的框架与生成器的结构无关，为了简化起见，作者使用了传统的biLSTM。
+对于一个单词序列 $\boldsymbol{x}=\{x_{1}, x_{2}, \cdots, x_{n}\}$，$n$ 是输入文本的长度。模型会生成一个替换行为的序列 $\boldsymbol{a}=\{a_{1}, a_{2}, \cdots, a_{n}\}$，然后由 $\boldsymbol{x}$ 和 $\boldsymbol{a}$ 生成新的句子。由于作者提出的框架与生成器的结构无关，为了简化起见，作者使用了传统的biLSTM。
 
 ### 分类器
 

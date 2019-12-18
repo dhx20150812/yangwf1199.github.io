@@ -142,3 +142,15 @@ $$
 \mathcal{L}=-\sum_{i=1}^{N} \sum_{j=1}^{l}\left(y_{i j} \log \left(\hat{y}_{i j}\right)\right) +\left(1-y_{i j}\right) \log \left(1-\hat{y}_{i j}\right)
 $$
 
+
+## 实验
+
+作者在多个数据集（RCV1、AAPD、EUR-Lex和KanShan-Cup）上进行了实验，baseline选择了XML-CNN、SGM、DXML和AttentionXML，评价准则是 $P@K$ 和 $nDCG@k$，实验的结果如下：
+
+![image-20191219002004926](https://note.youdao.com/yws/api/personal/file/WEBa2ccc00f16979be40ca94598a0cc52f4?method=download&shareKey=9d613582a52d0ab160e1773912df972e)
+
+![image-20191219002013600](https://note.youdao.com/yws/api/personal/file/WEBebba867d9666903a295df4b14788f9a3?method=download&shareKey=66fe38ade6c1c1c270ba681f5633ff66)
+
+
+
+

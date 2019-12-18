@@ -17,6 +17,8 @@ tags:
 
 
 >   来自AAAI 2019，https://arxiv.org/pdf/1809.03118.pdf
+>
+>   代码已开源 [https://github.com/lancopku/Seq2Set](https://github.com/lancopku/Seq2Set)
 
 ## Introduction
 

@@ -16,6 +16,8 @@ tags:
 # LexicalAT: Lexical-Based Adversarial Reinforcement Training for Robust Sentiment Classiﬁcation
 
 >   来自EMNLP 2019，https://www.aclweb.org/anthology/D19-1554.pdf
+>
+>   代码已开源 [https://github.com/lancopku/LexicalAT](https://github.com/lancopku/LexicalAT)
 
 ## Introduction
 

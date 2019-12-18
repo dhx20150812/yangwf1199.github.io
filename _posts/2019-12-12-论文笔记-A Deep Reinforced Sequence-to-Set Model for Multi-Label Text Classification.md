@@ -9,6 +9,7 @@ catalog: true
 mathjax: true
 tags:
     - NLP
+    - 文本分类
     - 多标签分类
 ---
 

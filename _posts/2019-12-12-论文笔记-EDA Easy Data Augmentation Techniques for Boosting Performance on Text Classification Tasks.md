@@ -18,6 +18,8 @@ tags:
 
 
 >   来自EMNLP 2019 short paper，https://arxiv.org/abs/1901.11196.pdf
+>
+>   代码已开源[https://github.com/jasonwei20/eda_nlp](https://github.com/jasonwei20/eda_nlp)
 
 ## Introduction
 

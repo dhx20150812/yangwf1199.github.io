@@ -16,6 +16,8 @@ tags:
 # Label-Specific Document Representation for Multi-Label Text Classification
 
 >   来自EMNLP 2019，https://www.aclweb.org/anthology/D19-1044/
+>
+>   代码已开源： [https://github.com/EMNLP2019LSAN/LSAN](https://github.com/EMNLP2019LSAN/LSAN)
 
 ## Introduction
 

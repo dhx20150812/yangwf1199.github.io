@@ -49,7 +49,7 @@ tags:
 
 ### 问题的形式化定义
 
-记 $D=\{(x_i,y_i)\}_{i=1}^N$ 为文档集合，它包含 $N$ 个文档，对应的标签集合为 $Y=\{y_i \in \{0,1\}^l\}$，$l$ 是标签的总个数。每个文档都是一个词的序列，而每个词都可以通过 word2vec 被表示为一个  $d$ 维的向量，令 $x_{i}=\left\{w_{1}, \cdots, w_{p}, \cdots, w_{n}\right\}$ 表示第 $i$ 个文档，$w_p \in \mathbb{R}^k$ 是文档中的第 $p$ 个词，$n$ 是文档中的词的数目。
+记 $D=\{(x_i,y_i)\}\_{i=1}^N$ 为文档集合，它包含 $N$ 个文档，对应的标签集合为 $Y=\{y_i \in \{0,1\}^l\}$，$l$ 是标签的总个数。每个文档都是一个词的序列，而每个词都可以通过 word2vec 被表示为一个  $d$ 维的向量，令 $x_{i}=\left\{w_{1}, \cdots, w_{p}, \cdots, w_{n}\right\}$ 表示第 $i$ 个文档，$w_p \in \mathbb{R}^k$ 是文档中的第 $p$ 个词，$n$ 是文档中的词的数目。
 
 与文档中的词相同，每个标签也可以被表示为词向量，那么标签的集合就可以被表示为矩阵 $C \in \mathbb{R}^{l \times k}$。给定输入文档及其关联的标签 $D$ ，MLTC的任务就是给每个文档分配最有可能的标签。
 
@@ -137,6 +137,7 @@ $$
 其中，$W_{5} \in \mathbb{R}^{b \times 2 k}$，$W_{6} \in \mathbb{R}^{b}$ 是要训练的参数。
 
 损失函数为：
+
 $$
 \mathcal{L}=-\sum_{i=1}^{N} \sum_{j=1}^{l}\left(y_{i j} \log \left(\hat{y}_{i j}\right)\right) +\left(1-y_{i j}\right) \log \left(1-\hat{y}_{i j}\right)
 $$

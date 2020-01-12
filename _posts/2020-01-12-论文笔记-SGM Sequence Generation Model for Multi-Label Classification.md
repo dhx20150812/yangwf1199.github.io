@@ -33,7 +33,7 @@ tags:
 
 我们先给出这篇文章的问题定义：
 
-定义标签集合 $\mathcal{L}=\left\{l_{1}, l_{2}, \cdots, l_{L}\right\}$，它共有 $L$ 个标签。给定一个有 $m$ 个词的文本序列 $\boldsymbol{x}$，多标签分类的任务就是为文本 $\boldsymbol{x}$ 分配一个有 $n$ 个标签的子集 $\boldsymbol{y}$。于是从序列建模的角度来说，多标签分类的目标就是最大化如下的条件概率：
+定义标签集合 $\mathcal{L}=\\{l_{1}, l_{2}, \cdots, l_{L}\\}$，它共有 $L$ 个标签。给定一个有 $m$ 个词的文本序列 $\boldsymbol{x}$，多标签分类的任务就是为文本 $\boldsymbol{x}$ 分配一个有 $n$ 个标签的子集 $\boldsymbol{y}$。于是从序列建模的角度来说，多标签分类的目标就是最大化如下的条件概率：
 
 
 $$
@@ -48,17 +48,17 @@ SGM 模型的总体概况如下所示：
 
 首先，我们先将每个文本对应的标签按照他们在训练集中的频次排序。高频次的标签排在前面。同时将 $bos$ 和 $eos$ 插入到标签序列的头部和尾部中。
 
-文本 $\boldsymbol{x}$ 首先被编码为隐层状态，然后通过注意力机制聚合到 $t$ 时刻的上下文向量中。解码器将上下文向量 $c_t$ 、上一时刻的隐层状态 $s_{t-1}$ 和上一时刻的输出的 embedding 向量 $\boldsymbol{y}_{t-1}$ 作为输入，产生这一时刻的隐层状态 $s_t$。
+文本 $\boldsymbol{x}$ 首先被编码为隐层状态，然后通过注意力机制聚合到 $t$ 时刻的上下文向量中。解码器将上下文向量 $c_t$ 、上一时刻的隐层状态 $s_{t-1}$ 和上一时刻的输出的 embedding 向量 $\boldsymbol{y}\_{t-1}$ 作为输入，产生这一时刻的隐层状态 $s_t$。
 
 ### Encoder
 
-作者使用了双向 LSTM 来读取输入文本 $\boldsymbol{x}=\{\boldsymbol{x}_1,\boldsymbol{x}_2,\cdots,\boldsymbol{x}_m\}$，如下所示：
+作者使用了双向 LSTM 来读取输入文本 $\boldsymbol{x}=\\{\boldsymbol{x}\_1,\boldsymbol{x}\_2,\cdots,\boldsymbol{x}\_m\\}$，如下所示：
 
 $$
 \begin{array}{l}{\overrightarrow{\boldsymbol{h}}_{i}=\overrightarrow{\mathrm{LSTM}}\left(\overrightarrow{\boldsymbol{h}}_{i-1}, \boldsymbol{x}_{i}\right)} \\ {\overleftarrow{\boldsymbol{h}}_{i}=\overleftarrow{\operatorname{LSTM}}\left(\overleftarrow{\boldsymbol{h}}_{i+1}, \boldsymbol{x}_{i}\right)}\end{array}
 $$
 
-然后将前后向的隐层状态拼接起来得到 $t$ 时刻的隐层状态 $\boldsymbol{h}_{i}=\left[\overrightarrow{\boldsymbol{h}}_{i} ; \overleftarrow{\boldsymbol{h}}_{i}\right]$，它融合了第 $i$ 个词周围的序列信息。
+然后将前后向的隐层状态拼接起来得到 $t$ 时刻的隐层状态 $\boldsymbol{h}\_{i}=\left[\overrightarrow{\boldsymbol{h}}\_{i} ; \overleftarrow{\boldsymbol{h}}\_{i}\right]$，它融合了第 $i$ 个词周围的序列信息。
 
 ### Attention
 
@@ -68,7 +68,7 @@ $$
 \begin{aligned} e_{t i} &=\boldsymbol{v}_{a}^{T} \tanh \left(\boldsymbol{W}_{a} \boldsymbol{s}_{t}+\boldsymbol{U}_{a} \boldsymbol{h}_{i}\right) \\ \alpha_{t i} &=\frac{\exp \left(e_{t i}\right)}{\sum_{j=1}^{m} \exp \left(e_{t j}\right)} \end{aligned}
 $$
 
-而 $\boldsymbol{W}_{a}$、$\boldsymbol{U}_{a}$ 和 $\boldsymbol{v}_{a}$ 都是需要学习的参数。$\boldsymbol{s}_{t}$ 是解码器在当前时刻的隐层状态。这一时刻的上下文向量由如下计算得到：
+而 $\boldsymbol{W}\_{a}$、$\boldsymbol{U}\_{a}$ 和 $\boldsymbol{v}\_{a}$ 都是需要学习的参数。$\boldsymbol{s}\_{t}$ 是解码器在当前时刻的隐层状态。这一时刻的上下文向量由如下计算得到：
 
 $$
 c_{t}=\sum_{i=1}^{m} \alpha_{t i} \boldsymbol{h}_{i}
@@ -82,13 +82,13 @@ $$
 s_{t}=\operatorname{LSTM}\left(s_{t-1},\left[g\left(\boldsymbol{y}_{t-1}\right) ; \boldsymbol{c}_{t-1}\right]\right)
 $$
 
-其中 $\left[g\left(\boldsymbol{y}_{t-1}\right) ; \boldsymbol{c}_{t-1}\right]$ 意味着将向量 $g\left(\boldsymbol{y}_{t-1}\right)$ 和 $\boldsymbol{c}_{t-1}$ 拼接起来。$g\left(\boldsymbol{y}_{t-1}\right)$ 是在分布$\boldsymbol{y}_{t-1}$ 下最大概率的标签的 embedding 向量。$\boldsymbol{y}_{t-1}$ 是 $t-1$ 时刻在标签集合 $\mathcal{L}$ 下的概率分布，它由如下计算得到：
+其中 $\left[g\left(\boldsymbol{y}\_{t-1}\right) ; \boldsymbol{c}\_{t-1}\right]$ 意味着将向量 $g\left(\boldsymbol{y}\_{t-1}\right)$ 和 $\boldsymbol{c}\_{t-1}$ 拼接起来。$g\left(\boldsymbol{y}\_{t-1}\right)$ 是在分布$\boldsymbol{y}\_{t-1}$ 下最大概率的标签的 embedding 向量。$\boldsymbol{y}\_{t-1}$ 是 $t-1$ 时刻在标签集合 $\mathcal{L}$ 下的概率分布，它由如下计算得到：
 
 $$
 \begin{aligned} \boldsymbol{o}_{t} &=\boldsymbol{W}_{o} f\left(\boldsymbol{W}_{d} \boldsymbol{s}_{t}+\boldsymbol{V}_{d} \boldsymbol{c}_{t}\right) \\ \boldsymbol{y}_{t} &=\operatorname{softmax}\left(\boldsymbol{o}_{t}+\boldsymbol{I}_{t}\right) \end{aligned}
 $$
 
-其中，$\boldsymbol{W}_{o}$、$\boldsymbol{W}_{d}$ 和 $ \boldsymbol{V}_{d}$ 是需要学习的参数。$\boldsymbol{I}_{t}$ 是 mask 向量，它的作用是防止已经预测过的标签再次被预测到：
+其中，$\boldsymbol{W}\_{o}$、$\boldsymbol{W}_{d}$ 和 $ \boldsymbol{V}\_{d}$ 是需要学习的参数。$\boldsymbol{I}\_{t}$ 是 mask 向量，它的作用是防止已经预测过的标签再次被预测到：
 
 $$
 \left(\boldsymbol{I}_{t}\right)_{i}=\left\{\begin{array}{ll}{-\infty} & {\text { if the label } l_{i} \text { has been predicted at previous } t-1 \text { time steps. }} \\ {0} & {\text { otherwise. }}\end{array}\right.
@@ -96,9 +96,9 @@ $$
 
 ### Global Embedding
 
-上述解码器中的 embedding 向量 $g\left(\boldsymbol{y}_{t-1}\right)$  是在分布 $\boldsymbol{y}_{t-1}$ 下最大概率的标签的 embedding 向量。这样的做法是贪心的。可是，这个计算只是贪心的利用了 $\boldsymbol{y}_{t-1}$ 的最大值。在论文提出的 SGM 模型中，基于先前预测的标签来产生下一个标签。因此，如果在第 $t$ 时刻得到了错误的预测，然后就会在预测下一个标签的时候得到了一个错误的后继标签，这也叫做 exposure bias。
+上述解码器中的 embedding 向量 $g\left(\boldsymbol{y}\_{t-1}\right)$  是在分布 $\boldsymbol{y}\_{t-1}$ 下最大概率的标签的 embedding 向量。这样的做法是贪心的。可是，这个计算只是贪心的利用了 $\boldsymbol{y}\_{t-1}$ 的最大值。在论文提出的 SGM 模型中，基于先前预测的标签来产生下一个标签。因此，如果在第 $t$ 时刻得到了错误的预测，然后就会在预测下一个标签的时候得到了一个错误的后继标签，这也叫做 exposure bias。
 
-受到 Highway Netework 中 adaptive gate 的启发，作者引入一个全新的global embedding。定义 $\boldsymbol{e}$ 是在分布 $\boldsymbol{y}_{t-1}$ 下最大概率的标签的 embedding 向量，在之前的做法中，$g\left(\boldsymbol{y}_{t-1}\right)=\boldsymbol{e}$，而 $t$ 时刻的 weighted average embedding 向量如下：
+受到 Highway Netework 中 adaptive gate 的启发，作者引入一个全新的global embedding。定义 $\boldsymbol{e}$ 是在分布 $\boldsymbol{y}\_{t-1}$ 下最大概率的标签的 embedding 向量，在之前的做法中，$g\left(\boldsymbol{y}\_{t-1}\right)=\boldsymbol{e}$，而 $t$ 时刻的 weighted average embedding 向量如下：
 
 $$
 \bar{e}=\sum_{i=1}^{L} y_{t-1}^{(i)} e_{i}
@@ -116,7 +116,7 @@ $$
 \boldsymbol{H}=\boldsymbol{W}_{1} \boldsymbol{e}+\boldsymbol{W}_{2} \bar{e}
 $$
 
-$\boldsymbol{W}_{1}$ 和 $\boldsymbol{W}_{2}$ 是权重矩阵。此时 $\boldsymbol{y}_{t-1}$ 融合了所有可能的标签的信息，减小了之前的错误预测带来的损害。这使得模型更加鲁棒。
+$\boldsymbol{W}\_{1}$ 和 $\boldsymbol{W}\_{2}$ 是权重矩阵。此时 $\boldsymbol{y}\_{t-1}$ 融合了所有可能的标签的信息，减小了之前的错误预测带来的损害。这使得模型更加鲁棒。
 
 ## Experiments
 

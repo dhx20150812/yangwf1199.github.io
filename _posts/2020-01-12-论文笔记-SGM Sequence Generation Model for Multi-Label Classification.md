@@ -122,7 +122,7 @@ $\boldsymbol{W}\_{1}$ 和 $\boldsymbol{W}\_{2}$ 是权重矩阵。此时 $\bolds
 
 先介绍数据集——
 
-| Dataset | total samples | label sets | words/samples | labels/samples |
+| Dataset | Total Samples | Label Sets | Words/Samples | Labels/Samples |
 | :-: | :-: | :-: | :-: | :-: |
 | RCV1 | 804414 | 103 |123.94|3.24|
 | AAPD | 55840 | 54 |163.42|2.41|

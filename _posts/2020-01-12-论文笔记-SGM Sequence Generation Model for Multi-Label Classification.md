@@ -156,3 +156,4 @@ $$
 
 ![image-20200113003951734](https://note.youdao.com/yws/api/personal/file/WEBa8d83aef88169486621d77c36e1aca27?method=download&shareKey=c60e8839cf52f2178394eea0e78405ca)
 
+先观察左侧的结果，显然在没有做mask和sort之后，模型的效果有所降低，Hamming loss略微升高，Micro F1降低。同时在右侧也可以得出相同的结论。这就证明了mask和sort对于模型的效果提升来说，都是很有必要的策略。同时我们发现，在别的因素都相同的前提下，没有使用global embedding的模型的效果也略低于使用了global embedding的模型的效果。

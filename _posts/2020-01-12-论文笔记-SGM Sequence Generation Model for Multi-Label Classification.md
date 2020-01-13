@@ -46,6 +46,8 @@ SGM 模型的总体概况如下所示：
 
 <img src="https://note.youdao.com/yws/api/personal/file/WEB70f1c0deebc2e4c2b018f62620441b95?method=download&amp;shareKey=a44df800c2283a6a0983eb3ac804d47a" alt="image-20200112230700925" style="zoom:67%;" />
 
+其中，MS意味着 mask softmax 层，GE 代表着 Global Embedding。
+
 首先，我们先将每个文本对应的标签按照他们在训练集中的频次排序。高频次的标签排在前面。同时将 $bos$ 和 $eos$ 插入到标签序列的头部和尾部中。
 
 文本 $\boldsymbol{x}$ 首先被编码为隐层状态，然后通过注意力机制聚合到 $t$ 时刻的上下文向量中。解码器将上下文向量 $c_t$ 、上一时刻的隐层状态 $s_{t-1}$ 和上一时刻的输出的 embedding 向量 $\boldsymbol{y}\_{t-1}$ 作为输入，产生这一时刻的隐层状态 $s_t$。
@@ -129,8 +131,8 @@ $\boldsymbol{W}\_{1}$ 和 $\boldsymbol{W}\_{2}$ 是权重矩阵。此时 $\bolds
 
 评价标准是Hamming-loss 和 Micro-F1。具体的实验设置如下：
 
--   RCV1: 词表大小是50000，oov的词用 $unk$ 来代替，固定句子长度为500，beam size 为 5，词向量维度为512，编码器和解码器的隐层大小分别是256和512，LSTM的层数都是2层。
--   AAPD: 词向量维度是256，编码器的LSTM有两层，隐层大小是256；解码器有一层LSTM，隐层大小是512，词表大小是30000，oov的词用 $unk$ 来代替，固定句子长度为500，beam size 为 9。
+-   **RCV1**: 词表大小是50000，oov的词用 $unk$ 来代替，固定句子长度为500，beam size 为 5，词向量维度为512，编码器和解码器的隐层大小分别是256和512，LSTM的层数都是2层。
+-   **AAPD**: 词向量维度是256，编码器的LSTM有两层，隐层大小是256；解码器有一层LSTM，隐层大小是512，词表大小是30000，oov的词用 $unk$ 来代替，固定句子长度为500，beam size 为 9。
 
 作者设置的baseline由BR、CC、LP、CNN和CNN-RNN，在两个数据集上的结果分别如下：
 

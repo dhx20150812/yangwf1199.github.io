@@ -148,10 +148,11 @@ $$
 
 <img src="https://note.youdao.com/yws/api/personal/file/WEBadee1519c831ef2a576bec9b37c9669c?method=download&shareKey=b3020abe6e53777595e356a772057efd"  style="zoom:67%;" />
 
-可见，使用 global embedding 的效果要优于不使用 global embedding的效果。在 $\lambda$ 增长时，模型的效果先提高，然后降低。
+可见，使用 global embedding 的效果要优于不使用 global embedding的效果。在 $\lambda$ 增长时，模型的效果先提高，然后降低。这就解释了为何使用了global embedding的模型拥有最佳的效果，因为它可以根据实际情况选择最合适的 $\lambda$。
 
 ### Mask 和 排序对模型效果的影响
 
-作者在两个数据集上
+作者在 RCV1 数据集上进行实验，分别实验了 Mask 和标签排序对模型效果的影响。下图左侧是SGM模型未使用global embedding 时的效果，右侧是使用global embedding 时的效果。
 
 ![image-20200113003951734](https://note.youdao.com/yws/api/personal/file/WEBa8d83aef88169486621d77c36e1aca27?method=download&shareKey=c60e8839cf52f2178394eea0e78405ca)
+

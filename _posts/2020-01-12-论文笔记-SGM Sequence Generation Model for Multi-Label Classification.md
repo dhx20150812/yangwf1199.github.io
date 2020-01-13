@@ -127,7 +127,10 @@ $\boldsymbol{W}\_{1}$ 和 $\boldsymbol{W}\_{2}$ 是权重矩阵。此时 $\bolds
 | RCV1 | 804414 | 103 |123.94|3.24|
 | AAPD | 55840 | 54 |163.42|2.41|
 
-评价标准是Hamming-loss 和 Micro-F1。
+评价标准是Hamming-loss 和 Micro-F1。具体的实验设置如下：
+
+-   RCV1: 词表大小是50000，oov的词用 $unk$ 来代替，固定句子长度为500，beam size 为 5，词向量维度为512，编码器和解码器的隐层大小分别是256和512，LSTM的层数都是2层。
+-   AAPD: 词向量维度是256，编码器的LSTM有两层，隐层大小是256；解码器有一层LSTM，隐层大小是512，词表大小是30000，oov的词用 $unk$ 来代替，固定句子长度为500，beam size 为 9。
 
 作者设置的baseline由BR、CC、LP、CNN和CNN-RNN，在两个数据集上的结果分别如下：
 

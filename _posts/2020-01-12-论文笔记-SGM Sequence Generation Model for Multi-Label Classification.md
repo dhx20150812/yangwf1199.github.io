@@ -100,7 +100,7 @@ $$
 
 上述解码器中的 embedding 向量 $g\left(\boldsymbol{y}\_{t-1}\right)$  是在分布 $\boldsymbol{y}\_{t-1}$ 下最大概率的标签的 embedding 向量。这样的做法是贪心的。可是，这个计算只是贪心的利用了 $\boldsymbol{y}\_{t-1}$ 的最大值。在论文提出的 SGM 模型中，基于先前预测的标签来产生下一个标签。因此，如果在第 $t$ 时刻得到了错误的预测，然后就会在预测下一个标签的时候得到了一个错误的后继标签，这也叫做 exposure bias。
 
-受到 Highway Netework 中 adaptive gate 的启发，作者引入一个全新的global embedding。定义 $\boldsymbol{e}$ 是在分布 $\boldsymbol{y}\_{t-1}$ 下最大概率的标签的 embedding 向量，在之前的做法中，$g\left(\boldsymbol{y}\_{t-1}\right)=\boldsymbol{e}$，而 $t$ 时刻的 weighted average embedding 向量如下：
+受到 Highway Network 中 adaptive gate 的启发，作者引入一个全新的global embedding。定义 $\boldsymbol{e}$ 是在分布 $\boldsymbol{y}\_{t-1}$ 下最大概率的标签的 embedding 向量，在之前的做法中，$g\left(\boldsymbol{y}\_{t-1}\right)=\boldsymbol{e}$，而 $t$ 时刻的 weighted average embedding 向量如下：
 
 $$
 \bar{e}=\sum_{i=1}^{L} y_{t-1}^{(i)} e_{i}
@@ -160,6 +160,8 @@ $$
 作者在 RCV1 数据集上进行实验，分别实验了 Mask 和标签排序对模型效果的影响。下图左侧是SGM模型未使用global embedding 时的效果，右侧是使用global embedding 时的效果。
 
 ![image-20200113003951734](https://note.youdao.com/yws/api/personal/file/WEBa8d83aef88169486621d77c36e1aca27?method=download&shareKey=c60e8839cf52f2178394eea0e78405ca)
+
+<img src="https://note.youdao.com/yws/api/personal/file/WEBa8d83aef88169486621d77c36e1aca27?method=download&shareKey=c60e8839cf52f2178394eea0e78405ca" style="zoom:120%;">
 
 先观察左侧的结果，显然在没有做mask和sort之后，模型的效果有所降低，Hamming loss略微升高，Micro F1降低。同时在右侧也可以得出相同的结论。这就证明了mask和sort对于模型的效果提升来说，都是很有必要的策略。同时我们发现，在别的因素都相同的前提下，没有使用global embedding的模型的效果也略低于使用了global embedding的模型的效果。
 

@@ -46,7 +46,7 @@ SGM 模型的总体概况如下所示：
 
 <img src="https://note.youdao.com/yws/api/personal/file/WEB70f1c0deebc2e4c2b018f62620441b95?method=download&amp;shareKey=a44df800c2283a6a0983eb3ac804d47a" alt="image-20200112230700925" style="zoom:67%;" />
 
-其中，MS意味着 mask softmax 层，GE 代表着 Global Embedding。
+其中，MS 意味着 mask softmax 层，GE 代表着 Global Embedding。
 
 首先，我们先将每个文本对应的标签按照他们在训练集中的频次排序。高频次的标签排在前面。同时将 $bos$ 和 $eos$ 插入到标签序列的头部和尾部中。
 
@@ -162,3 +162,12 @@ $$
 ![image-20200113003951734](https://note.youdao.com/yws/api/personal/file/WEBa8d83aef88169486621d77c36e1aca27?method=download&shareKey=c60e8839cf52f2178394eea0e78405ca)
 
 先观察左侧的结果，显然在没有做mask和sort之后，模型的效果有所降低，Hamming loss略微升高，Micro F1降低。同时在右侧也可以得出相同的结论。这就证明了mask和sort对于模型的效果提升来说，都是很有必要的策略。同时我们发现，在别的因素都相同的前提下，没有使用global embedding的模型的效果也略低于使用了global embedding的模型的效果。
+
+
+### 标签序列长度对模型效果的影响
+
+作者发现，随着标签序列长度的增加，模型的效果迅速降低。为了进一步探究标签序列长度（LLS）对模型效果的影响，作者根据标签序列长度将测试集切分为不同的子集，并与传统方法 BR 进行了对比实验，效果如下：
+
+<img src="https://note.youdao.com/yws/api/personal/file/WEB7eb14fbc86a70360803cd405c605ff0d?method=download&shareKey=409f119b5db5b81a1ee7b5df8edb2014" alt="image-20200113150314275" style="zoom:50%;" />
+
+可见，两种方法的效果都随着标签序列长度的递增而递减。而传统的方法 BR 相对与 SGM 而言效果略差一些。作者认为这是因为当标签序列越来越长时，需要更多的信息来精准地预测整个标签序列，而 BR 忽略了标签之间的关联性，会损失大量的信息。

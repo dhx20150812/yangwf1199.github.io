@@ -497,7 +497,7 @@ pre code {
 }
 .intro-header {
   background: no-repeat center center;
-  background-color: #808080;
+  background-color: #CC00FF;
   background-attachment: scroll;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -508,7 +508,7 @@ pre code {
 }
 @media only screen and (min-width: 768px) {
   .intro-header {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     /* response on desktop */
   }
 }

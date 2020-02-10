@@ -108,7 +108,7 @@ $$
 
 ### 判别器学习
 
-判别器的学习是半监督的方式。记 $\boldsymbol{\theta}_{D}$ 为判别器的参数。为了学习到特定语义，作者设置了一系列有标签样本 $ \mathcal{X}_{L}=\left\{\left(\boldsymbol{x}_{L}, \boldsymbol{c}_{L}\right)\right\}$来训练判别器 $D$ ，目标如下：
+判别器的学习是半监督的方式。记 $\boldsymbol{\theta}\_{D}$ 为判别器的参数。为了学习到特定语义，作者设置了一系列有标签样本 $ \mathcal{X}\_{L}=\left\{\left(\boldsymbol{x}\_{L}, \boldsymbol{c}\_{L}\right)\right\}$来训练判别器 $D$ ，目标如下：
 
 $$
 \mathcal{L}_{s}\left(\boldsymbol{\theta}_{D}\right)=-\mathbb{E}_{\mathcal{X}_{L}}\left[\log q_{D}\left(\boldsymbol{c}_{L} | \boldsymbol{x}_{L}\right)\right]
@@ -117,10 +117,10 @@ $$
 此外，生成器 $G$ 还能够合成噪声句子属性对 $(\hat{\boldsymbol{x}}, \boldsymbol{c})$，该属性对可用于增强半监督学习的训练数据。为了缓解噪声数据的问题并确保模型优化的鲁棒性，作者引入了最小熵正则化项。因此训练目标是：
 
 $$
-\mathcal{L}_{u}\left(\boldsymbol{\theta}_{D}\right)=-\mathbb{E}_{p_{G}(\hat{\boldsymbol{x}} | z, c) p(\boldsymbol{z}) p(\boldsymbol{c})}\left[\log q_{D}(\boldsymbol{c} | \hat{\boldsymbol{x}})+\beta \mathcal{H}\left(q_{D}\left(\boldsymbol{c}^{\prime} | \hat{\boldsymbol{x}}\right)\right)\right]
+\mathcal{L}_{u}\left(\boldsymbol{\theta}_{D}\right)=-\mathbb{E}_{p_{G}(\hat{\boldsymbol{x}} \mid z, c) p(\boldsymbol{z}) p(\boldsymbol{c})}\left[\log q_{D}(\boldsymbol{c} \mid \hat{\boldsymbol{x}})+\beta \mathcal{H}\left(q_{D}\left(\boldsymbol{c}^{\prime} \mid \hat{\boldsymbol{x}}\right)\right)\right]
 $$
 
-其中，$\mathcal{H}\left(q_{D}\left(\boldsymbol{c}^{\prime} | \hat{\boldsymbol{x}}\right)\right)$ 是生成的句子 $\hat{\boldsymbol{x}}$ 上分布 $q_{D}$ 的经验香农熵。直觉来说，最小熵正则项使得模型在预测标签时有更高的置信度。
+其中，$\mathcal{H}\left(q_{D}\left(\boldsymbol{c}^{\prime} \mid \hat{\boldsymbol{x}}\right)\right)$ 是生成的句子 $\hat{\boldsymbol{x}}$ 上分布 $q_{D}$ 的经验香农熵。直觉来说，最小熵正则项使得模型在预测标签时有更高的置信度。
 
 于是判别器的联合训练目标由如下得到：
 

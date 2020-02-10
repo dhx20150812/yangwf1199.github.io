@@ -108,7 +108,7 @@ $$
 
 ### 判别器学习
 
-判别器的学习是半监督的方式。记 $\boldsymbol{\theta}\_{D}$ 为判别器的参数。为了学习到特定语义，作者设置了一系列有标签样本 $ \mathcal{X}\_{L}=\left\{\left(\boldsymbol{x}\_{L}, \boldsymbol{c}\_{L}\right)\right\}$来训练判别器 $D$ ，目标如下：
+判别器的学习是半监督的方式。记 $\boldsymbol{\theta}\_{D}$ 为判别器的参数。为了学习到特定语义，作者设置了一系列有标签样本 $ \mathcal{X}\_{L}=\\{\left(\boldsymbol{x}\_{L}, \boldsymbol{c}\_{L}\right)\\}$ 来训练判别器 $D$ ，目标如下：
 
 $$
 \mathcal{L}_{s}\left(\boldsymbol{\theta}_{D}\right)=-\mathbb{E}_{\mathcal{X}_{L}}\left[\log q_{D}\left(\boldsymbol{c}_{L} | \boldsymbol{x}_{L}\right)\right]

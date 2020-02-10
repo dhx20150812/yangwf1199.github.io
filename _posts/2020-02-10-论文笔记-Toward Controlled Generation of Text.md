@@ -56,7 +56,7 @@ tags:
 
 ### 生成器学习
 
-生成器 $G$ 是一个 LSTM-RNN 网络，它以潜在编码 $(\boldsymbol{z}, \boldsymbol{c})$ 为条件，产生 token 序列 $\hat{\boldsymbol{x}}=\\{\hat{x}_{1}, \ldots, \hat{x}_{T}\\}$，它描述了生成式分布：
+生成器 $G$ 是一个 LSTM-RNN 网络，它以潜在编码 $(\boldsymbol{z}, \boldsymbol{c})$ 为条件，产生 token 序列 $\hat{\boldsymbol{x}}=\\{\hat{x}\_{1}, \ldots, \hat{x}\_{T}\\}$，它描述了生成式分布：
 
 $$
 \begin{aligned} \hat{\boldsymbol{x}} \sim G(\boldsymbol{z}, \boldsymbol{c}) &=p_{G}(\hat{\boldsymbol{x}} | \boldsymbol{z}, \boldsymbol{c}) \\ &=\prod_{t} p\left(\hat{x}_{t} | \hat{\boldsymbol{x}}^{<t}, \boldsymbol{z}, \boldsymbol{c}\right) \end{aligned}

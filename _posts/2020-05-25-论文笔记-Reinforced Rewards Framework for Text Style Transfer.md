@@ -1,3 +1,19 @@
+---
+layout:     post
+title:      论文笔记
+subtitle:   Reinforced Rewards Framework for Text Style Transfer
+date:       2020-05-25
+author:     dhx20150812
+header-img: img/post-bg-ios9-web.jpg
+catalog: true
+mathjax: true
+tags:
+    - NLP
+    - 文本风格迁移
+    - 强化学习
+---
+
+
 # Reinforced Rewards Framework for Text Style Transfer
 
 >   来自ECIR 2020

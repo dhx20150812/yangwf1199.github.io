@@ -33,6 +33,7 @@ tags:
 ### Generation Process
 
 我们的方法基于一种 copy-enriched seq2seq 框架。训练时的输入是源文本 $x$ 和风格 $c_1$，输入句子中的单词通过一个 LSTM 编码器映射到隐层空间，网络通过注意力机制得到一个上下文向量，解码器综合了一个RNN网络和一个PTR网络，前者预测词表上的概率分布，后者预测输入句子上的概率分布。两个分布的加权和得到了最后的预测输出：
+
 $$
 P_{t}(w)=\delta P_{t}^{R N N}(w)+(1-\delta) P_{t}^{P T R}(w)
 $$
@@ -55,7 +56,7 @@ $$
 
 为了在迁移风格的同时保留文本的内容，作者使用了Self-Critic Sequence Training（SCST）的方法，并使用BLEU作为reward分数。SCST是一种强化学习中的策略梯度的方法，它可以在不可微的评估指标下直接训练端到端的模型。BLEU评分衡量了ground truth和生成句子之间的重叠。
 
-作者产生了两个输出的句子，一个是从概率分布 $p\left(y_{t}^{s} | y_{1: t-1}^{s}, x\right)$ 中采样得到的 $y^s$，另一个是在每一时刻贪心的选择概率最大的输出 $y^{\prime}$。因此这一部分的loss计算为
+作者产生了两个输出的句子，一个是从概率分布 $p\left(y_{t}^{s} \mid y_{1: t-1}^{s}, x\right)$ 中采样得到的 $y^s$，另一个是在每一时刻贪心的选择概率最大的输出 $y^{\prime}$。因此这一部分的loss计算为
 
 $$
 L_{c p}=\left(r\left(y^{\prime}\right)-r\left(y^{s}\right)\right) \sum_{t=1}^{m} \log \left(p\left(y_{t}^{s} | y_{1: t-1}^{s}, x\right)\right)

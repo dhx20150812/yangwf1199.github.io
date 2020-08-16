@@ -25,7 +25,7 @@ tags:
 
 ## 任务描述
 
-假设共有 $K$ 个属性 $\left\{a_{1}, \ldots, a_{K}\right\}$。现有一个标记的句子集合 $D=\left\{\left(x^{n}, l^{n}\right)\right\}_{n=1}^{N}$，$ l^n$是子集中的属性集合。给定一个句子 $x$ 和属性值 $l^{\prime}=\left(l_{1}, \ldots, l_{K}\right)$，我们的目标是生成一个句子，它有与 $x$ 相同的内容，但是却是由 $l^{\prime}$ 指定其属性值。在这个任务中，我们将内容定义为句子中未被属性捕获的信息。 我们使用属性向量来指代属性标签的二进制向量表示，它是由属性标签的one-hot向量表示拼接而来。
+假设共有 $K$ 个属性 $\left\{a\_{1}, \ldots, a\_{K}\right\}$。现有一个标记的句子集合 $D=\left\{\left(x^{n}, l^{n}\right)\right\}\_{n=1}^{N}$，$ l^n$是子集中的属性集合。给定一个句子 $x$ 和属性值 $l^{\prime}=\left(l\_{1}, \ldots, l\_{K}\right)$，我们的目标是生成一个句子，它有与 $x$ 相同的内容，但是却是由 $l^{\prime}$ 指定其属性值。在这个任务中，我们将内容定义为句子中未被属性捕获的信息。 我们使用属性向量来指代属性标签的二进制向量表示，它是由属性标签的one-hot向量表示拼接而来。
 
 ## 模型概述
 
@@ -35,7 +35,7 @@ tags:
 
 我们设计了两种重建损失，来鼓励内容一致性——
 
-（1）自编码损失。$x$ 是一个句子，其对应的属性向量是 $l$。令 $z_{x}=G_{\mathrm{enc}}(x)$ 是句子 $x$ 的编码表示。由于在分布$G\left(\cdot \mid z_{x}, l\right)$下句子 $x$ 应该有很高的概率，因此我们使用自编码损失来强制执行此约束——
+（1）自编码损失。$x$ 是一个句子，其对应的属性向量是 $l$。令 $z_{x}=G_{\mathrm{enc}}(x)$ 是句子 $x$ 的编码表示。由于在分布$G\left(\cdot \mid z_{x}, l\right)$下句子 $x$ 应该有很高的概率，因此我们使用自编码损失来强制执行此约束
 
 $$
 \mathcal{L}^{a e}(x, l)=-\log p_{G}\left(x \mid z_{x}, l\right)
@@ -92,6 +92,7 @@ $$
 **属性准确率**：作者先使用CNN网络预训练一个情感分类器，然后以此来评估生成文本的情感准确性。
 
 **内容一致性**：作者从没有平行语料的无监督机器翻译评价中获得启发。给定两个非平行数据集 $D_{src}$ 和 $D_{tgt}$，和两个翻译模型 $M_{s r c \rightarrow t g t}$、$M_{t g t \rightarrow s r c}^{\prime}$，评价指标如下：
+
 $$
 f_{\text {content }}\left(M, M^{\prime}\right)=0.5\left[\mathbb{E}_{x \sim D_{\text {src }}} \operatorname{BLEU}\left(x, M^{\prime} \circ M(x)\right)+\mathbb{E}_{x \sim D_{\text {tgt }}} \operatorname{BLEU}\left(x, M \circ M^{\prime}(x)\right)\right]
 $$

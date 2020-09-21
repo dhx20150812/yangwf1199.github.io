@@ -1,0 +1,72 @@
+# Site settings
+title: My Notebook
+SEOTitle: Blog
+subtitle: Do not go gentle into that good night.
+header-img: img/post-bg-desk.jpg
+email: mlhxding@gmail.com
+description: "Do not go gentle into that good night."
+keyword: "NLP, AI"
+url: "http://dhx20150812.github.io"          # your host, for absolute URL
+baseurl: ""      # for example, '/blog' if your blog hosted on 'host/blog'
+github_repo: "https://github.com/dhx20150812/dhx20150812.github.io.git" # you code repository
+
+# Sidebar settings
+sidebar: true                         # whether or not using Sidebar.
+sidebar-about-description: "Accept and then overcome "
+#sidebar-avatar: /img/about-BY-gentle.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
+
+
+
+# SNS settings
+RSS: true
+github_username:    dhx20150812
+
+
+
+
+# Build settings
+# from 2016, 'pygments' is unsupported on GitHub Pages. Use 'rouge' for highlighting instead.
+permalink: pretty
+paginate: 100
+exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"]
+anchorjs: true                          # if you want to customize anchor. check out line:181 of `post.html`
+
+
+
+# Gems
+# from PR#40, to support local preview for Jekyll 3.0
+gems: [jekyll-paginate]
+
+
+
+
+# Markdown settings
+# replace redcarpet to kramdown,
+# although redcarpet can auto highlight code, the lack of header-id make the catalog impossible, so I switch to kramdown
+# document: http://jekyllrb.com/docs/configuration/#kramdown
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  input: GFM                            # use Github Flavored Markdown !important
+
+
+
+
+
+
+
+
+# Featured Tags
+featured-tags: true                    # 是否使用首页标签
+featured-condition-size: 0              # 相同标签数量大于这个数，才会出现在首页
+
+
+
+# Progressive Web Apps
+chrome-tab-theme-color: "#000000"
+service-worker: true
+
+
+
+# Friends
+

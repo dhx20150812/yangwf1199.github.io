@@ -1,3 +1,17 @@
+---
+layout:     post
+title:      论文笔记
+subtitle:   Exploring Controllable Text Generation Techniques
+date:       2020-09-21
+author:     dhx20150812
+header-img: img/post-bg-ios9-web.jpg
+catalog: true
+mathjax: true
+tags:
+    - NLP
+    - 可控文本生成
+---
+
 # Exploring Controllable Text Generation Techniques
 
 ## 摘要

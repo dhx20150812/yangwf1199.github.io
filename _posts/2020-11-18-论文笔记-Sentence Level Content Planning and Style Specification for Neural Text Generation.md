@@ -72,7 +72,7 @@ $$
 \boldsymbol{q}_{j}=\left(\sum_{r=0}^{j} \boldsymbol{v}_{r}\right)^{T} \times \mathbb{E}
 $$
 
-其中，$\mathbb{E}=\left[\boldsymbol{h}\_{1}^{e}, \boldsymbol{h}\_{2}^{e}, \ldots \boldsymbol{h}\_{\|\mathcal{M}\|}^{e}\right]^{T} \in \mathbb{R}^{|\mathcal{M}| \times H}$ 是短语表示的矩阵。$H$ 是 LSTM 的隐层维度。因此，下一时刻的短语选择向量 $\boldsymbol{v}_{j+1}$ 有下面的式子得到：
+其中，$\mathbb{E}=\left[\boldsymbol{h}\_{1}^{e}, \boldsymbol{h}\_{2}^{e}, \ldots \boldsymbol{h}\_{\|\mathcal{M}\|}^{e}\right]^{T} \in \mathbb{R}^{\|\mathcal{M}\| \times H}$ 是短语表示的矩阵。$H$ 是 LSTM 的隐层维度。因此，下一时刻的短语选择向量 $\boldsymbol{v}\_{j+1}$ 有下面的式子得到：
 
 $$
 P\left(\boldsymbol{v}_{j+1, k}=1 \mid \boldsymbol{v}_{1: j}\right)=\sigma\left(\mathbf{w}_{v}^{T} \boldsymbol{s}_{j}+\boldsymbol{q}_{j} \mathbf{W}^{c} \boldsymbol{h}_{k}^{e}\right)

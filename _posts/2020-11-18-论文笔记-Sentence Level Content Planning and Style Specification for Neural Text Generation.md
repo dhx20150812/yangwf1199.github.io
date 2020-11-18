@@ -47,7 +47,7 @@ tags:
 
 ## Model
 
-模型的输入包括两部分：（1）主题陈述 $\mathbf{x}=\left\{x_{i}\right\}$。它可以是论点，可以是维基百科的文章标题，也可以是论文标题。（2）关键词记忆单元，$\mathcal{M}$，它包含话题要点列表，在 `content planning` 和风格选择中起着关键作用。目标输出是一个序列 $\mathbf{y}=\left\{y_{t}\right\}$，它可以是一个反驳的论点，维基百科文章中的一段话，或者一篇论文摘要。
+模型的输入包括两部分：（1）主题陈述 $\mathbf{x}=\\{x_{i}\\}$。它可以是论点，可以是维基百科的文章标题，也可以是论文标题。（2）关键词记忆单元，$\mathcal{M}$，它包含话题要点列表，在 `content planning` 和风格选择中起着关键作用。目标输出是一个序列 $\mathbf{y}=\\{y_{t}\\}$，它可以是一个反驳的论点，维基百科文章中的一段话，或者一篇论文摘要。
 
 ### 输入编码
 
@@ -55,7 +55,7 @@ tags:
 
 ### Content Planning
 
-`Content planning` 基于前面的句子中已选择的关键词短语，从 $\mathcal{M}$ 中为每个句子（以 $j$ 为索引）选择一组关键词短语，从而实现主题连贯性和避免内容重复。这个选择器表示为一个选择向量 $\boldsymbol{v}_{j} \in \mathbb{R}^{|\mathcal{M}|}$，它的每一维 $\boldsymbol{v}_{j, k} \in\{0,1\}$ 表示第 $k$ 个短语是否被选择为生成第 $j$ 个句子。
+`Content planning` 基于前面的句子中已选择的关键词短语，从 $\mathcal{M}$ 中为每个句子（以 $j$ 为索引）选择一组关键词短语，从而实现主题连贯性和避免内容重复。这个选择器表示为一个选择向量 $\boldsymbol{v}\_{j} \in \mathbb{R}^{\|\mathcal{M}\|}$，它的每一维 $\boldsymbol{v}\_{j, k} \in\{0,1\}$ 表示第 $k$ 个短语是否被选择为生成第 $j$ 个句子。
 
 作者使用了句子级别的 LSTM 网络 $f$，根据选择的短语词向量之和 $\boldsymbol{m}_{j}$，产生第 $j$ 个句子的隐层状态：
 
@@ -72,7 +72,7 @@ $$
 \boldsymbol{q}_{j}=\left(\sum_{r=0}^{j} \boldsymbol{v}_{r}\right)^{T} \times \mathbb{E}
 $$
 
-其中，$\mathbb{E}=\left[\boldsymbol{h}_{1}^{e}, \boldsymbol{h}_{2}^{e}, \ldots \boldsymbol{h}_{|\mathcal{M}|}^{e}\right]^{T} \in \mathbb{R}^{|\mathcal{M}| \times H}$ 是短语表示的矩阵。$H$ 是 LSTM 的隐层维度。因此，下一时刻的短语选择向量 $\boldsymbol{v}_{j+1}$ 有下面的式子得到：
+其中，$\mathbb{E}=\left[\boldsymbol{h}\_{1}^{e}, \boldsymbol{h}\_{2}^{e}, \ldots \boldsymbol{h}\_{\|\mathcal{M}\|}^{e}\right]^{T} \in \mathbb{R}^{|\mathcal{M}| \times H}$ 是短语表示的矩阵。$H$ 是 LSTM 的隐层维度。因此，下一时刻的短语选择向量 $\boldsymbol{v}_{j+1}$ 有下面的式子得到：
 
 $$
 P\left(\boldsymbol{v}_{j+1, k}=1 \mid \boldsymbol{v}_{1: j}\right)=\sigma\left(\mathbf{w}_{v}^{T} \boldsymbol{s}_{j}+\boldsymbol{q}_{j} \mathbf{W}^{c} \boldsymbol{h}_{k}^{e}\right)

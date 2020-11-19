@@ -99,4 +99,46 @@ $$
 $$
 
 
+### Surface Realization
+
+作者用 LSTM 网络实现了 `surface realization` 解码器，为了计算得到第 $t$ 个词的隐层状态 $\boldsymbol{z}\_{t}$，LSTM 结合了 `content planning` 解码器的隐层状态 $\boldsymbol{s}\_{J(t)}$ 和上一个词$\boldsymbol{y}\_{t-1}$ ，公式如下：
+
+$$
+\boldsymbol{z}_{t}=g\left(\boldsymbol{z}_{t-1}, \tanh \left(\mathbf{W}^{w s} \boldsymbol{s}_{J(t)}+\mathbf{W}^{w w} \boldsymbol{y}_{t-1}\right)\right)
+$$
+
+对于单词预测，作者考虑了两种注意力。一个关于输入的陈述 $\mathbf{x}$，它产生了上下文向量 $c_{t}^{w}$；另一个关于 `keyphase memory bank` $\mathcal{M}$，它生成 $\boldsymbol{c}\_{t}^{e}$。同时为了更好地发挥语言风格对选词的控制作用，作者直接将预测的句子风格拼接到隐层状态 $\boldsymbol{z}\_{t}$ 上，然后计算在词典上的概率分布：
+
+$$
+\begin{array}{l}
+P\left(y_{t} \mid y_{1: t-1}\right)=\operatorname{softmax}\left(\tanh \left(\mathbf{W}^{o}\left[\boldsymbol{z}_{t} ; \boldsymbol{c}_{t}^{w} ; \boldsymbol{c}_{t}^{e} ; \boldsymbol{t}_{J(t)}\right]\right)\right) 
+\end{array}
+$$
+
+$$
+\begin{aligned}
+\boldsymbol{c}_{t}^{w} &=\sum_{i=1}^{L} \alpha_{i}^{w} \boldsymbol{h}_{i}, \quad \alpha_{i}^{w}=\operatorname{softmax}\left(\boldsymbol{z}_{t} \mathbf{W}^{w a} \boldsymbol{h}_{i}\right) \\
+\boldsymbol{c}_{t}^{e} &=\sum_{k=1}^{|\mathcal{M}|} \alpha_{k} \boldsymbol{h}_{k}^{e}, \quad \alpha_{k}^{e}=\operatorname{softmax}\left(\boldsymbol{z}_{t} \mathbf{W}^{w e} \boldsymbol{h}_{k}^{e}\right)
+\end{aligned}
+$$
+
+
+### Training Objective
+
+作者将三个损失函数整合到一起：
+
+（1）单词预测 $\mathcal{L}_{\mathrm{gen}}=-\sum_{D} \sum_{t=1}^{T} \log P\left(y_{t}^{*} \mid \mathbf{x} ; \theta\right)$
+
+（2）关键词选择 $\mathcal{L}_{\mathrm{sel}}$
+
+（3）风格预测 $\mathcal{L}_{\text {style }}$
+
+因此，总的损失函数是：
+
+$$
+\mathcal{L}(\theta)=\mathcal{L}_{\mathrm{gen}}(\theta)+\gamma \cdot \mathcal{L}_{\text {style }}(\theta)+\eta \cdot \mathcal{L}_{\operatorname{sel}}(\theta)
+$$
+
+为了简单起见，在实验中作者将 $\gamma$ 和 $\eta$ 设置为1.0。
+
 

@@ -86,4 +86,17 @@ $$
 
 ### Style Specification
 
+人们通常会为不同的语言目标选择使用不同的语言风格。因此，作者为每个句子使用了一个风格变量 $\boldsymbol{t}\_{j}$，它由如下的公式预测得到：
+
+$$
+\hat{\boldsymbol{t}}_{j}=\operatorname{softmax}\left(\mathbf{w}_{s}^{T}\left(\tanh \left(\mathbf{W}^{s}\left[\boldsymbol{m}_{j} ; \boldsymbol{s}_{j}\right]\right)\right)\right.
+$$
+
+$\hat{\boldsymbol{t}}\_{j}$ 是所有类别上估计的概率分布。作者选择其中最大概率的风格，并用其 one-hot 表示 $\boldsymbol{t}\_{j}$ 作为` realization decoder` 的输入。然后将其与真实标签 $\boldsymbol{t}\_{j}^{*}$ 一起计算交叉熵损失：
+
+$$
+\mathcal{L}_{\text {style }}=-\sum_{(\mathbf{x}, \mathbf{y}) \in D} \sum_{j=1}^{J} \boldsymbol{t}_{j}^{*} \log \hat{\boldsymbol{t}}_{j}
+$$
+
+
 

@@ -127,7 +127,7 @@ $$
 
 作者将三个损失函数整合到一起：
 
-（1）单词预测 $\mathcal{L}_{\mathrm{gen}}=-\sum_{D} \sum_{t=1}^{T} \log P(y_{t}^{*} \mid \mathbf{x} ; \theta)$
+（1）单词预测 $\mathcal{L}\_{\mathrm{gen}} = -\sum_{D} \sum_{t=1}^{T} \log P(y_{t}^{*} \mid \mathbf{x} ; \theta)$
 
 （2）关键词选择 $\mathcal{L}_{\mathrm{sel}}$
 

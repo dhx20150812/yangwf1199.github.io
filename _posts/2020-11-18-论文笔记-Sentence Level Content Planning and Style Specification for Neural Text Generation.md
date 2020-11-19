@@ -157,3 +157,35 @@ $$
 
 
 （3）Abstract Generation：为科技文章生成摘要。
+
+### Baselines and Comparisons
+
+对于三个任务，作者都实现了一个SEQ2SEQ的baseline，它将输入的文本和关键词集合一起编码，然后产生输出。
+
+对观点生成的任务，作者实现了一个 `RETRIEVAL` 的baseline，它返回了将原贴作为输入时概率最高的文章。同时，作者还与之前的工作进行了比较。
+
+对维基百科的生成任务，作者也实现了一个`RETRIEVAL` 的baseline，它基于余弦相似度返回了与输入标题和关键词最相似的文章。
+
+对摘要生成的任务，作者将其与 SOTA 的 `GRAPHWRITER` 进行比较。
+
+同时，作者还与模型的变体进行了比较：（1）对每个句子使用gold-standard的关键词选择（Oracle Plan）（2）没有指定风格
+
+### Results and Analysis
+
+（1）Argument Generation：由下图可见，作者提出的模型与其余的baseline相比都取得了更高的BLEU和ROUGE分数，同时也比生成式的方法产生了更长的文本。同时，在模型变体中，oracle 设置的模型提升了效果，这证明了 `content selection` 的重要性。当移除风格控制时，模型的分数降低，这证明了风格控制在生成时的作用。
+
+![image-20201119155619494](https://note.youdao.com/yws/api/personal/file/WEB9dc0598486cfab3dc1fedb4f879e7fcb?method=download&shareKey=d3b0868bd56d75a7181f06d135c9f757)
+
+（2）Wikipedia Generation：在维基百科数据集上的结果如下图所示。可见，当没有风格控制时，模型的效果显著降低。同时，oracle设置的模型变体取得了最高的分数。
+
+![image-20201119160136658](https://note.youdao.com/yws/api/personal/file/WEB8a1008d9a0ea4901c1150789a44a4ee6?method=download&shareKey=82dea09b6a31e59ce239bca6841556cb)
+
+同时为了展示 `content selection` 对生成质量的影响，作者绘制了关键词选择时的F1分数与生成效果之间的关系图。可见，两者有强烈的相关性。
+
+![image-20201119160504622](https://note.youdao.com/yws/api/personal/file/WEB0e79fcc612842459e2472109baad1389?method=download&shareKey=6eb2f6e6e6fa5551c1aba8af4a10a031)
+
+（3）Abstract Generation：
+
+最后，作者将自己的模型与 `GRAPHWRITER` 进行了比较，实验结果表明自己的方法与其相比有不弱的表现。
+
+![image-20201119160558288](https://note.youdao.com/yws/api/personal/file/WEB7c171c763d05e82aeb8375f1adb1a18e?method=download&shareKey=6964a29567994d3ca1d6d87227abbc51)

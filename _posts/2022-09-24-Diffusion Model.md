@@ -64,7 +64,7 @@ tags:
 
 ### 前向过程
 
-假设我们有一个真实的样本 $\mathbf{x}_{0} \sim q(\mathbf{x})$，前向过程共进行 $T$ 步，每一步添加一些高斯噪声，每一步都可以表示为：
+假设我们有一个真实的样本 $\mathbf{x}\_{0} \sim q(\mathbf{x})$，前向过程共进行 $T$ 步，每一步添加一些高斯噪声，每一步都可以表示为：
 
 $$
 q\left(\mathbf{x}_t \mid \mathbf{x}_{t-1}\right)=\mathcal{N}\left(\mathbf{x}_t ; \sqrt{1-\beta_t} \mathbf{x}_{t-1}, \beta_t \mathbf{I}\right) \\
@@ -73,11 +73,11 @@ $$
 
 其中 $\beta_{t}$ 是一个 $(0, 1)$ 之间的数，它实际上控制了每一步添加的噪声的大小。越大噪声越多，破坏的也就越多；越小噪声越小，保留的也就越多。
 
-在整个前向的过程中，样本 $\mathbf{x}_{0}$ 逐渐失去自己独有的特征，最终退化为一个各向同性的高斯噪声。
+在整个前向的过程中，样本 $\mathbf{x}\_{0}$ 逐渐失去自己独有的特征，最终退化为一个各向同性的高斯噪声。
 
 <img src="https://raw.githubusercontent.com/dhx20150812/my-photo/main/20220925115155.png" title="" alt="" data-align="center">
 
-上述过程还有一个非常漂亮的性质，那就是我们可以直接采样任意时间 $t$ 的中间表示 $\mathbf{x}_{t}$，而不用迭代地去计算。令 $\alpha_t=1-\beta_t$ 和 $\bar{\alpha}_t=\prod_{i=1}^t \alpha_i$，那么我们有
+上述过程还有一个非常漂亮的性质，那就是我们可以直接采样任意时间 $t$ 的中间表示 $\mathbf{x}\_{t}$，而不用迭代地去计算。令 $\alpha_t=1-\beta_t$ 和 $\bar{\alpha}\_t=\prod_{i=1}^t \alpha_i$，那么我们有
 
 $$
 \begin{aligned}
@@ -88,13 +88,13 @@ $$
 \end{aligned}
 $$
 
-其中 $\mathbf{z}_{t-1}, \mathbf{z}_{t-2}, \cdots \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$。
+其中 $\mathbf{z}\_{t-1}, \mathbf{z}\_{t-2}, \cdots \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$。
 
 通常来说，前向过程中有 $\beta_1<\beta_2<\ldots<\beta_T$，也就是说破坏力度是越来越大的。相应的有 $\alpha_1>\alpha_2>\ldots>\alpha_T$。
 
 ### 反向过程
 
-如果我们反转上述过程，并从 $q(\mathbf{x}_{t-1} \mid \mathbf{x}_{t})$ 中进行采样，那么就可以从一个高斯噪音 $\mathbf{x}_T \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$ 出发，逐步采样出 $\mathbf{x}_{T-1}, \mathbf{x}_{T-2}, \cdots, \mathbf{x}_1$，最终解码得到数据样本 $\mathbf{x}_{0}=\mathbf{x}$。
+如果我们反转上述过程，并从 $q(\mathbf{x}\_{t-1} \mid \mathbf{x}\_{t})$ 中进行采样，那么就可以从一个高斯噪音 $\mathbf{x}\_T \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$ 出发，逐步采样出 $\mathbf{x}\_{T-1}, \mathbf{x}\_{T-2}, \cdots, \mathbf{x}\_1$，最终解码得到数据样本 $\mathbf{x}\_{0}=\mathbf{x}$。
 
 如果直接使用贝叶斯公式
 
@@ -102,9 +102,9 @@ $$
 q \left(\mathbf{x}_{t-1} \mid \mathbf{x}_t\right)=\frac{q\left(\mathbf{x}_t \mid \mathbf{x}_{t-1}\right) q\left(\mathbf{x}_{t-1}\right)}{q\left(\mathbf{x}_t\right)}
 $$
 
-但是我们无法求得 $q(\mathbf{x}_{t-1})$ 和 $q(\mathbf{x}_{t-1})$，因此也无法直接根据前向的过程 $q\left(\mathbf{x}_t \mid \mathbf{x}_{t-1}\right)$ 直接求得反向的过程。
+但是我们无法求得 $q(\mathbf{x}\_{t-1})$ 和 $q(\mathbf{x}\_{t-1})$，因此也无法直接根据前向的过程 $q\left(\mathbf{x}\_t \mid \mathbf{x}\_{t-1}\right)$ 直接求得反向的过程。
 
-但是注意到，如果我们可以给定 $\mathbf{x}_{0}$，在这个条件下使用贝叶斯，那么
+但是注意到，如果我们可以给定 $\mathbf{x}\_{0}$，在这个条件下使用贝叶斯，那么
 
 $$
 \begin{aligned}
@@ -115,7 +115,7 @@ $$
 \end{aligned}
 $$
 
-$C\left(\mathbf{x}_t, \mathbf{x}_0\right)$ 是一些与 $\mathbf{x}_{t-1}$ 无关的项，因此可以忽略。
+$C\left(\mathbf{x}\_t, \mathbf{x}\_0\right)$ 是一些与 $\mathbf{x}\_{t-1}$ 无关的项，因此可以忽略。
 
 在上述推导过程中：
 
@@ -136,7 +136,7 @@ $$
 
 - 第三行到第四行即为 $a x^2+b x+C=a\left(x+\frac{b}{2 a}\right)^2$
 
-上述的反向的条件高斯分布可以参数化为 $q\left(\mathbf{x}_{t-1} \mid \mathbf{x}_t, \mathbf{x}_0\right)=\mathcal{N}\left(\mathbf{x}_{t-1} ; \tilde{\boldsymbol{\mu}}\left(\mathbf{x}_t, \mathbf{x}_0\right), \tilde{\beta}_t \mathbf{I}\right)$。
+上述的反向的条件高斯分布可以参数化为 $q\left(\mathbf{x}\_{t-1} \mid \mathbf{x}\_t, \mathbf{x}\_0\right)=\mathcal{N}\left(\mathbf{x}\_{t-1} ; \tilde{\boldsymbol{\mu}}\left(\mathbf{x}\_t, \mathbf{x}\_0\right), \tilde{\beta}\_t \mathbf{I}\right)$。
 
 高斯分布的方差可以表示为
 
@@ -173,7 +173,7 @@ L_{\mathrm{CE}} &=-\mathbb{E}_{q\left(\mathbf{x}_0\right)} \log p_\theta\left(\m
 \end{aligned}
 $$
 
-$q_(\mathbf{x}_{0})$ 是真实的数据分布，而 $p_{\theta}(\mathbf{x}_{0})$ 是模型预测的分布。上式中第四行到第五行使用了Jensen不等式的性质 $\log \mathbb{E}[f(x)] \geq \mathbb{E}[\log f(x)]$。
+$q_(\mathbf{x}\_{0})$ 是真实的数据分布，而 $p_{\theta}(\mathbf{x}\_{0})$ 是模型预测的分布。上式中第四行到第五行使用了Jensen不等式的性质 $\log \mathbb{E}[f(x)] \geq \mathbb{E}[\log f(x)]$。
 
 与VAE相似，我们选择使用变分下界来优化负对数似然。该变分下界还可以进一步改写为
 
@@ -212,15 +212,15 @@ L_0 &=-\log p_\theta\left(\mathbf{x}_0 \mid \mathbf{x}_1\right)
 \end{aligned}
 $$
 
-$L_{\mathrm{VLB}}$ 中的每一项（除了$L_{0}$）都是两个高斯分布之间的KL散度，因此他们都是可计算的。$L_{T}$ 是一个常数可以忽略，因为 $q$ 不含可学习的参数，且 $\mathbf{x}_{T}$ 是高斯噪声。
+$L_{\mathrm{VLB}}$ 中的每一项（除了$L_{0}$）都是两个高斯分布之间的KL散度，因此他们都是可计算的。$L_{T}$ 是一个常数可以忽略，因为 $q$ 不含可学习的参数，且 $\mathbf{x}\_{T}$ 是高斯噪声。
 
 ### $L_T$ 的参数化
 
-我们的目标是学习一个网络来近似反向过程中的条件分布 $p_\theta\left(\mathbf{x}_{t-1} \mid \mathbf{x}_t\right)=\mathcal{N}\left(\mathbf{x}_{t-1} ; \boldsymbol{\mu}_\theta\left(\mathbf{x}_t, t\right), \mathbf{\Sigma}_\theta\left(\mathbf{x}_t, t\right)\right)$，我们需要找一个合适的参数化方式。
+我们的目标是学习一个网络来近似反向过程中的条件分布 $p_\theta\left(\mathbf{x}\_{t-1} \mid \mathbf{x}\_t\right)=\mathcal{N}\left(\mathbf{x}\_{t-1} ; \boldsymbol{\mu}\_\theta\left(\mathbf{x}\_t, t\right), \mathbf{\Sigma}\_\theta\left(\mathbf{x}\_t, t\right)\right)$，我们需要找一个合适的参数化方式。
 
-- 对于均值 $\mu_\theta\left(x_t, t\right)$ ，我们希望它能够近似真实的反向过程中的分布的均值 $\tilde{\boldsymbol{\mu}}_t=\frac{1}{\sqrt{\alpha_t}}\left(\mathbf{x}_t-\frac{\beta_t}{\sqrt{1-\bar{\alpha}_t}} \mathbf{z}_t\right)$。由于在训练阶段，输入 $\mathbf{x}_{t}$ 是已知的，所以我们选择参数化噪声 $\mathbf{z}_t$，在训练时从 $\mathbf{x}_{t}$ 预测噪声。
+- 对于均值 $\mu\_\theta\left(x\_t, t\right)$ ，我们希望它能够近似真实的反向过程中的分布的均值 $\tilde{\boldsymbol{\mu}}\_t=\frac{1}{\sqrt{\alpha\_t}}\left(\mathbf{x}\_t-\frac{\beta\_t}{\sqrt{1-\bar{\alpha}\_t}} \mathbf{z}\_t\right)$。由于在训练阶段，输入 $\mathbf{x}\_{t}$ 是已知的，所以我们选择参数化噪声 $\mathbf{z}\_t$，在训练时从 $\mathbf{x}\_{t}$ 预测噪声。
 
-- 对于方差 $\Sigma_\theta\left(x_t, t\right)$，DDPM选择将其设置为常数 $\Sigma_\theta\left(x_t, t\right)=\operatorname{diag}\left(\sigma_t^2\right)$。令 $\sigma_t^2=\beta_t \text { or } \sigma_t^2=\tilde{\beta}_t=\frac{1-\bar{\alpha} t-1}{1-\bar{\alpha}_t} \beta_t$。
+- 对于方差 $\Sigma\_\theta\left(x\_t, t\right)$，DDPM选择将其设置为常数 $\Sigma\_\theta\left(x\_t, t\right)=\operatorname{diag}\left(\sigma_t^2\right)$。令 $\sigma_t^2=\beta\_t \text { or } \sigma\_t^2=\tilde{\beta}\_t=\frac{1-\bar{\alpha} t-1}{1-\bar{\alpha}\_t} \beta\_t$。
 
 此时，与 $L_t$ 有关的两个高斯分布分别为
 
@@ -243,7 +243,7 @@ L_t &= D_{\mathrm{KL}}\left(q\left(\mathbf{x}_t \mid \mathbf{x}_{t+1}, \mathbf{x
 \end{aligned}
 $$
 
-所以本质上，$L_t$ 在优化两个高斯噪音 $\mathbf{z}_t$ 和 $\mathbf{z}_{\theta}$ 之间的MSE损失。
+所以本质上，$L_t$ 在优化两个高斯噪音 $\mathbf{z}\_t$ 和 $\mathbf{z}\_{\theta}$ 之间的MSE损失。
 
 上述的MSE损失在实际训练中不稳定，因此 DDPM采用了如下简化版的损失函数
 

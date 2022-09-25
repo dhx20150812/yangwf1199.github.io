@@ -194,8 +194,7 @@ L_{\mathrm{VLB}}&=\mathbb{E}_{q\left(\mathbf{x}_{0: T}\right)}\left[\log \frac{q
 +\log \frac{q\left(\mathbf{x}_1 \mid \mathbf{x}_0\right)}{p_\theta\left(\mathbf{x}_0 \mid \mathbf{x}_1\right)}\right]\\
 &=\mathbb{E}_q\left[-\log p_\theta\left(\mathbf{x}_T\right)+\sum_{t=2}^T \log \frac{q\left(\mathbf{x}_{t-1} \mid \mathbf{x}_t, \mathbf{x}_0\right)}{p_\theta\left(\mathbf{x}_{t-1} \mid \mathbf{x}_t\right)}+\log \frac{q\left(\mathbf{x}_T \mid \mathbf{x}_0\right)}{q\left(\mathbf{x}_1 \mid \mathbf{x}_0\right)}+\log \frac{q\left(\mathbf{x}_1 \mid \mathbf{x}_0\right)}{p_\theta\left(\mathbf{x}_0 \mid \mathbf{x}_1\right)}\right]\\
 &=\mathbb{E}_q\left[\log \frac{q\left(\mathbf{x}_T \mid \mathbf{x}_0\right)}{p_\theta\left(\mathbf{x}_T\right)}+\sum_{t=2}^T \log \frac{q\left(\mathbf{x}_{t-1} \mid \mathbf{x}_t, \mathbf{x}_0\right)}{p_\theta\left(\mathbf{x}_{t-1} \mid \mathbf{x}_t\right)}-\log p_\theta\left(\mathbf{x}_0 \mid \mathbf{x}_1\right)\right]\\
-&=\mathbb{E}_q[\underbrace{D_{\mathrm{KL}}\left(q\left(\mathbf{x}_T \mid \mathbf{x}_0\right) \| p_\theta\left(\mathbf{x}_T\right)\right)}_{L_T}+\sum_{t=2}^T \underbrace{D_{\mathrm{KL}}\left(q\left(\mathbf{x}_{t-1} \mid \mathbf{x}_t, \mathbf{x}_0\right) \| p_\theta\left(\mathbf{x}_{t-1} \mid \mathbf{x}_t\right)\right)}_{L_{t-1}}\\
-\underbrace{-\log p_\theta\left(\mathbf{x}_0 \mid \mathbf{x}_1\right)}_{L_0}]
+&=\mathbb{E}_q[\underbrace{D_{\mathrm{KL}}\left(q\left(\mathbf{x}_T \mid \mathbf{x}_0\right) \| p_\theta\left(\mathbf{x}_T\right)\right)}_{L_T}+\sum_{t=2}^T \underbrace{D_{\mathrm{KL}}\left(q\left(\mathbf{x}_{t-1} \mid \mathbf{x}_t, \mathbf{x}_0\right) \| p_\theta\left(\mathbf{x}_{t-1} \mid \mathbf{x}_t\right)\right)}_{L_{t-1}} \underbrace{-\log p_\theta\left(\mathbf{x}_0 \mid \mathbf{x}_1\right)}_{L_0}]
 \end{aligned}
 $$
 
@@ -206,7 +205,7 @@ $$
 - 第四行到第五行中使用了马尔科夫性质和贝叶斯公式
   
   $$
-  q\left(x_t \mid x_{t-1}\right)=q\left(x_t \mid x_{t-1}, x_0\right)=\frac{q\left(x_t, x_{t-1} \mid x_0\right)}{q\left(x_{t-1} \mid x_0\right)}=q\left(x_{t-1} \mid x_t, x_0\right) \cdot \frac{q\left(x_t \mid x_0\right)}{q\left(x_{t-1} \mid x_0\right)}
+  q\left(\mathbf{x}_t \mid \mathbf{x}_{t-1}\right)=q\left(\mathbf{x}_t \mid \mathbf{x}_{t-1}, \mathbf{x}_0\right)=\frac{q\left(\mathbf{x}_t, \mathbf{x}_{t-1} \mid \mathbf{x}_0\right)}{q\left(\mathbf{x}_{t-1} \mid \mathbf{x}_0\right)}=q\left(\mathbf{x}_{t-1} \mid \mathbf{x}_t, \mathbf{x}_0\right) \cdot \frac{q\left(\mathbf{x}_t \mid \mathbf{x}_0\right)}{q\left(\mathbf{x}_{t-1} \mid \mathbf{x}_0\right)}
   $$
 
 将变分下界的每个部分分别标记一下，记作
@@ -233,11 +232,11 @@ $L_{\mathrm{VLB}}$ 中的每一项（除了$L_{0}$）都是两个高斯分布之
 此时，与 $L_t$ 有关的两个高斯分布分别为
 
 $$
-q\left(x_{t-1} \mid x_t\right)=q\left(x_{t-1} \mid x_t, x_0\right)=\mathcal{N}\left(x_{t-1} ; \tilde{\mu}_t\left(x_t, x_0\right)=\frac{1}{\sqrt{\alpha_t}}\left(x_t-\frac{\beta_t}{\sqrt{1-\bar{\alpha}_t}} z_t\right), \tilde{\Sigma}_t=\bar{\beta}_t \mathbf{I}\right)
+q\left(\mathbf{x}_{t-1} \mid \mathbf{x}_t\right)=q\left(\mathbf{x}_{t-1} \mid \mathbf{x}_t, \mathbf{x}_0\right)=\mathcal{N}\left(\mathbf{x}_{t-1} ; \tilde{\mu}_t\left(\mathbf{x}_t, \mathbf{x}_0\right)=\frac{1}{\sqrt{\alpha_t}}\left(\mathbf{x}_t-\frac{\beta_t}{\sqrt{1-\bar{\alpha}_t}} z_t\right), \tilde{\Sigma}_t=\bar{\beta}_t \mathbf{I}\right)
 $$
 
 $$
-p_\theta\left(x_{t-1} \mid x_t\right)=\mathcal{N}\left(x_{t-1} ; \mu_\theta\left(x_t, t\right)=\frac{1}{\sqrt{\alpha_t}}\left(x_t-\frac{\beta_t}{\sqrt{1-\bar{\alpha}_t}} z_\theta\left(x_t, t\right)\right), \Sigma_\theta\left(x_t, t\right)=\sigma_t^2 \mathbf{I}\right)
+p_\theta\left(\mathbf{x}_{t-1} \mid \mathbf{x}_t\right)=\mathcal{N}\left(\mathbf{x}_{t-1} ; \mu_\theta\left(\mathbf{x}_t, t\right)=\frac{1}{\sqrt{\alpha_t}}\left(\mathbf{x}_t-\frac{\beta_t}{\sqrt{1-\bar{\alpha}_t}} z_\theta\left(\mathbf{x}_t, t\right)\right), \Sigma_\theta\left(\mathbf{x}_t, t\right)=\sigma_t^2 \mathbf{I}\right)
 $$
 
 那么 $L_t$ 的计算方式为

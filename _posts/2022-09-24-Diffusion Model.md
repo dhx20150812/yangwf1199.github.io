@@ -64,20 +64,20 @@ tags:
 
 ### 前向过程
 
-假设我们有一个真实的样本 $\mathbf{x}\_{0} \sim q(\mathbf{x})$，前向过程共进行 $T$ 步，每一步添加一些高斯噪声，每一步都可以表示为：
+假设我们有一个真实的样本 $\mathbf{x}_{0} \sim q(\mathbf{x})$，前向过程共进行 $T$ 步，每一步添加一些高斯噪声，每一步都可以表示为：
 
 $$
-q\left(\mathbf{x}\_t \mid \mathbf{x}\_{t-1}\right)=\mathcal{N}\left(\mathbf{x}\_t ; \sqrt{1-\beta_t} \mathbf{x}\_{t-1}, \beta\_t \mathbf{I}\right) \\
-q\left(\mathbf{x}\_{1: T} \mid \mathbf{x}_0\right)=\prod\_{t=1}^T q\left(\mathbf{x}\_t \mid \mathbf{x}\_{t-1}\right)
+q\left(\mathbf{x}_t \mid \mathbf{x}_{t-1}\right)=\mathcal{N}\left(\mathbf{x}_t ; \sqrt{1-\beta_t} \mathbf{x}_{t-1}, \beta_t \mathbf{I}\right) \\
+q\left(\mathbf{x}_{1: T} \mid \mathbf{x}_0\right)=\prod_{t=1}^T q\left(\mathbf{x}_t \mid \mathbf{x}_{t-1}\right)
 $$
 
 其中 $\beta_{t}$ 是一个 $(0, 1)$ 之间的数，它实际上控制了每一步添加的噪声的大小。越大噪声越多，破坏的也就越多；越小噪声越小，保留的也就越多。
 
-在整个前向的过程中，样本 $\mathbf{x}\_{0}$ 逐渐失去自己独有的特征，最终退化为一个各向同性的高斯噪声。
+在整个前向的过程中，样本 $\mathbf{x}_{0}$ 逐渐失去自己独有的特征，最终退化为一个各向同性的高斯噪声。
 
 <img src="https://raw.githubusercontent.com/dhx20150812/my-photo/main/20220925115155.png" title="" alt="" data-align="center">
 
-上述过程还有一个非常漂亮的性质，那就是我们可以直接采样任意时间 $t$ 的中间表示 $\mathbf{x}\_{t}$，而不用迭代地去计算。令 $\alpha\_t=1-\beta\_t$ 和 $\bar{\alpha}\_t=\prod^{t}\_{i=1} \alpha_i$，那么我们有
+上述过程还有一个非常漂亮的性质，那就是我们可以直接采样任意时间 $t$ 的中间表示 $\mathbf{x}_{t}$，而不用迭代地去计算。令 $\alpha_t=1-\beta_t$ 和 $\bar{\alpha}_t=\prod^{t}_{i=1} \alpha_i$，那么我们有
 
 $$
 \begin{aligned}
@@ -88,13 +88,13 @@ $$
 \end{aligned}
 $$
 
-其中 $\mathbf{z}_{t-1}, \mathbf{z}_{t-2}, \cdots \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$。
+其中 $\mathbf{z}\_{t-1}, \mathbf{z}\_{t-2}, \cdots \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$。
 
 通常来说，前向过程中有 $\beta_1<\beta_2<\ldots<\beta_T$，也就是说破坏力度是越来越大的。相应的有 $\alpha_1>\alpha_2>\ldots>\alpha_T$。
 
 ### 反向过程
 
-如果我们反转上述过程，并从 $q(\mathbf{x}_{t-1} \mid \mathbf{x}_{t})$ 中进行采样，那么就可以从一个高斯噪音 $\mathbf{x}_T \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$ 出发，逐步采样出 $\mathbf{x}_{T-1}, \mathbf{x}_{T-2}, \cdots, \mathbf{x}_1$，最终解码得到数据样本 $\mathbf{x}_{0}=\mathbf{x}$。
+如果我们反转上述过程，并从 $q(\mathbf{x}\_{t-1} \mid \mathbf{x}\_{t})$ 中进行采样，那么就可以从一个高斯噪音 $\mathbf{x}\_T \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$ 出发，逐步采样出 $\mathbf{x}\_{T-1}, \mathbf{x}\_{T-2}, \cdots, \mathbf{x}\_1$，最终解码得到数据样本 $\mathbf{x}\_{0}=\mathbf{x}$。
 
 如果直接使用贝叶斯公式
 

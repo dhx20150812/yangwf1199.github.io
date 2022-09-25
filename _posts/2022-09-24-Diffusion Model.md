@@ -67,8 +67,8 @@ tags:
 假设我们有一个真实的样本 $\mathbf{x}\_{0} \sim q(\mathbf{x})$，前向过程共进行 $T$ 步，每一步添加一些高斯噪声，每一步都可以表示为：
 
 $$
-q\left(\mathbf{x}_t \mid \mathbf{x}_{t-1}\right)=\mathcal{N}\left(\mathbf{x}_t ; \sqrt{1-\beta_t} \mathbf{x}_{t-1}, \beta_t \mathbf{I}\right) \\
-q\left(\mathbf{x}_{1: T} \mid \mathbf{x}_0\right)=\prod_{t=1}^T q\left(\mathbf{x}_t \mid \mathbf{x}_{t-1}\right)
+q\left(\mathbf{x}\_t \mid \mathbf{x}\_{t-1}\right)=\mathcal{N}\left(\mathbf{x}\_t ; \sqrt{1-\beta_t} \mathbf{x}\_{t-1}, \beta\_t \mathbf{I}\right) \\
+q\left(\mathbf{x}\_{1: T} \mid \mathbf{x}_0\right)=\prod\_{t=1}^T q\left(\mathbf{x}\_t \mid \mathbf{x}\_{t-1}\right)
 $$
 
 其中 $\beta_{t}$ 是一个 $(0, 1)$ 之间的数，它实际上控制了每一步添加的噪声的大小。越大噪声越多，破坏的也就越多；越小噪声越小，保留的也就越多。
@@ -77,14 +77,14 @@ $$
 
 <img src="https://raw.githubusercontent.com/dhx20150812/my-photo/main/20220925115155.png" title="" alt="" data-align="center">
 
-上述过程还有一个非常漂亮的性质，那就是我们可以直接采样任意时间 $t$ 的中间表示 $\mathbf{x}\_{t}$，而不用迭代地去计算。令 $\alpha_t=1-\beta_t$ 和 $\bar{\alpha}\_t=\prod^{t}\_{i=1}\alpha_i$，那么我们有
+上述过程还有一个非常漂亮的性质，那就是我们可以直接采样任意时间 $t$ 的中间表示 $\mathbf{x}\_{t}$，而不用迭代地去计算。令 $\alpha\_t=1-\beta\_t$ 和 $\bar{\alpha}\_t=\prod^{t}\_{i=1} \alpha_i$，那么我们有
 
 $$
 \begin{aligned}
-&\mathbf{x}_t=\sqrt{\alpha_t} \mathbf{x}_{t-1}+\sqrt{1-\alpha_t} \mathbf{z}_{t-1}\\
-&=\sqrt{\alpha_t \alpha_{t-1}} \mathbf{x}_{t-2}+\underbrace{\sqrt{\alpha_t\left(1-\alpha_{t-1}\right)} \mathbf{z}_{t-2}+\sqrt{1-\alpha_t} \mathbf{z}_{t-1}}_{=\sqrt{1-\alpha_t \alpha_{t-1}} \overline{\mathbf{z}}_{t-1}}\\
+&\mathbf{x}\_t=\sqrt{\alpha\_t} \mathbf{x}\_{t-1}+\sqrt{1-\alpha\_t} \mathbf{z}\_{t-1}\\
+&=\sqrt{\alpha_t \alpha\_{t-1}} \mathbf{x}\_{t-2}+\underbrace{\sqrt{\alpha_t\left(1-\alpha\_{t-1}\right)} \mathbf{z}\_{t-2}+\sqrt{1-\alpha_t} \mathbf{z}\_{t-1}}_{=\sqrt{1-\alpha_t \alpha\_{t-1}} \overline{\mathbf{z}}\_{t-1}}\\
 &=\ldots\\
-&=\sqrt{\bar{\alpha}_t} \mathbf{x}_0+\sqrt{1-\bar{\alpha}_t} \overline{\mathbf{z}}_{t-1}
+&=\sqrt{\bar{\alpha}\_t} \mathbf{x}_0+\sqrt{1-\bar{\alpha}\_t} \overline{\mathbf{z}}\_{t-1}
 \end{aligned}
 $$
 
@@ -99,7 +99,7 @@ $$
 如果直接使用贝叶斯公式
 
 $$
-q \left(\mathbf{x}_{t-1} \mid \mathbf{x}_t\right)=\frac{q\left(\mathbf{x}_t \mid \mathbf{x}_{t-1}\right) q\left(\mathbf{x}_{t-1}\right)}{q\left(\mathbf{x}_t\right)}
+q \left(\mathbf{x}\_{t-1} \mid \mathbf{x}\_t\right)=\frac{q\left(\mathbf{x}\_t \mid \mathbf{x}\_{t-1}\right) q\left(\mathbf{x}\_{t-1}\right)}{q\left(\mathbf{x}\_t\right)}
 $$
 
 但是我们无法求得 $q(\mathbf{x}\_{t-1})$ 和 $q(\mathbf{x}\_{t-1})$，因此也无法直接根据前向的过程 $q\left(\mathbf{x}\_t \mid \mathbf{x}\_{t-1}\right)$ 直接求得反向的过程。
@@ -108,9 +108,9 @@ $$
 
 $$
 \begin{aligned}
-q\left(\mathbf{x}_{t-1} \mid \mathbf{x}_t, \mathbf{x}_0\right)=q\left(\mathbf{x}_t \mid \mathbf{x}_{t-1}, \mathbf{x}_0\right) \frac{q\left(\mathbf{x}_{t-1} \mid \mathbf{x}_0\right)}{q\left(\mathbf{x}_t \mid \mathbf{x}_0\right)}\\
-&\propto \exp \left(-\frac{1}{2}\left(\frac{\left(\mathbf{x}_t-\sqrt{\alpha_t} \mathbf{x}_{t-1}\right)^2}{\beta_t}+\frac{\left(\mathbf{x}_{t-1}-\sqrt{\bar{\alpha}_{t-1}} \mathbf{x}_0\right)^2}{1-\bar{\alpha}_{t-1}}-\frac{\left(\mathbf{x}_t-\sqrt{\bar{\alpha}_t} \mathbf{x}_0\right)^2}{1-\bar{\alpha}_t}\right)\right)\\
-&=\exp \left(-\frac{1}{2}\left(\frac{\mathbf{x}_t^2-2 \sqrt{\alpha_t} \mathbf{x}_t \mathbf{x}_{t-1}+\alpha_t \mathbf{x}_{t-1}^2}{\beta_t}+\frac{\mathbf{x}_{t-1}^2-2 \sqrt{\bar{\alpha}_{t-1}} \mathbf{x}_0 \mathbf{x}_{t-1}+\bar{\alpha}_{t-1} \mathbf{x}_0^2}{1-\bar{\alpha}_{t-1}}-\frac{\left(\mathbf{x}_t-\sqrt{\bar{\alpha}_t} \mathbf{x}_0\right)^2}{1-\bar{\alpha}_t}\right)\right)\\
+q\left(\mathbf{x}\_{t-1} \mid \mathbf{x}\_t, \mathbf{x}\_0\right)=q\left(\mathbf{x}\_t \mid \mathbf{x}\_{t-1}, \mathbf{x}\_0\right) \frac{q\left(\mathbf{x}\_{t-1} \mid \mathbf{x}\_0\right)}{q\left(\mathbf{x}\_t \mid \mathbf{x}\_0\right)}\\
+&\propto \exp \left(-\frac{1}{2}\left(\frac{\left(\mathbf{x}\_t-\sqrt{\alpha_t} \mathbf{x}\_{t-1}\right)^2}{\beta_t}+\frac{\left(\mathbf{x}\_{t-1}-\sqrt{\bar{\alpha}\_{t-1}} \mathbf{x}_0\right)^2}{1-\bar{\alpha}\_{t-1}}-\frac{\left(\mathbf{x}\_t-\sqrt{\bar{\alpha}\_t} \mathbf{x}_0\right)^2}{1-\bar{\alpha}\_t}\right)\right)\\
+&=\exp \left(-\frac{1}{2}\left(\frac{\mathbf{x}\_t^2-2 \sqrt{\alpha\_t} \mathbf{x}\_t \mathbf{x}\_{t-1}+\alpha_t \mathbf{x}\_{t-1}^2}{\beta_t}+\frac{\mathbf{x}\_{t-1}^2-2 \sqrt{\bar{\alpha}\_{t-1}} \mathbf{x}_0 \mathbf{x}\_{t-1}+\bar{\alpha}\_{t-1} \mathbf{x}_0^2}{1-\bar{\alpha}\_{t-1}}-\frac{\left(\mathbf{x}\_t-\sqrt{\bar{\alpha}_t} \mathbf{x}_0\right)^2}{1-\bar{\alpha}\_t}\right)\right)\\
 &=\exp \left(-\frac{1}{2}\left(\left(\frac{\alpha_t}{\beta_t}+\frac{1}{1-\bar{\alpha}_{t-1}}\right) \mathbf{x}_{t-1}^2-\left(\frac{2 \sqrt{\alpha_t}}{\beta_t} \mathbf{x}_t+\frac{2 \sqrt{\bar{\alpha}_{t-1}}}{1-\bar{\alpha}_{t-1}} \mathbf{x}_0\right) \mathbf{x}_{t-1}+C\left(\mathbf{x}_t, \mathbf{x}_0\right)\right)\right)
 \end{aligned}
 $$

@@ -108,7 +108,7 @@ $$
 
 $$
 \begin{aligned}
-&q\left(\mathbf{x}_{t-1} \mid \mathbf{x}_t, \mathbf{x}_0\right)=q\left(\mathbf{x}_t \mid \mathbf{x}_{t-1}, \mathbf{x}_0\right) \frac{q\left(\mathbf{x}_{t-1} \mid \mathbf{x}_0\right)}{q\left(\mathbf{x}_t \mid \mathbf{x}_0\right)}\\
+q\left(\mathbf{x}_{t-1} \mid \mathbf{x}_t, \mathbf{x}_0\right)=q\left(\mathbf{x}_t \mid \mathbf{x}_{t-1}, \mathbf{x}_0\right) \frac{q\left(\mathbf{x}_{t-1} \mid \mathbf{x}_0\right)}{q\left(\mathbf{x}_t \mid \mathbf{x}_0\right)}\\
 &\propto \exp \left(-\frac{1}{2}\left(\frac{\left(\mathbf{x}_t-\sqrt{\alpha_t} \mathbf{x}_{t-1}\right)^2}{\beta_t}+\frac{\left(\mathbf{x}_{t-1}-\sqrt{\bar{\alpha}_{t-1}} \mathbf{x}_0\right)^2}{1-\bar{\alpha}_{t-1}}-\frac{\left(\mathbf{x}_t-\sqrt{\bar{\alpha}_t} \mathbf{x}_0\right)^2}{1-\bar{\alpha}_t}\right)\right)\\
 &=\exp \left(-\frac{1}{2}\left(\frac{\mathbf{x}_t^2-2 \sqrt{\alpha_t} \mathbf{x}_t \mathbf{x}_{t-1}+\alpha_t \mathbf{x}_{t-1}^2}{\beta_t}+\frac{\mathbf{x}_{t-1}^2-2 \sqrt{\bar{\alpha}_{t-1}} \mathbf{x}_0 \mathbf{x}_{t-1}+\bar{\alpha}_{t-1} \mathbf{x}_0^2}{1-\bar{\alpha}_{t-1}}-\frac{\left(\mathbf{x}_t-\sqrt{\bar{\alpha}_t} \mathbf{x}_0\right)^2}{1-\bar{\alpha}_t}\right)\right)\\
 &=\exp \left(-\frac{1}{2}\left(\left(\frac{\alpha_t}{\beta_t}+\frac{1}{1-\bar{\alpha}_{t-1}}\right) \mathbf{x}_{t-1}^2-\left(\frac{2 \sqrt{\alpha_t}}{\beta_t} \mathbf{x}_t+\frac{2 \sqrt{\bar{\alpha}_{t-1}}}{1-\bar{\alpha}_{t-1}} \mathbf{x}_0\right) \mathbf{x}_{t-1}+C\left(\mathbf{x}_t, \mathbf{x}_0\right)\right)\right)
@@ -123,7 +123,6 @@ $C\left(\mathbf{x}\_t, \mathbf{x}\_0\right)$ 是一些与 $\mathbf{x}\_{t-1}$ �
 
 $$
 q\left(x_t \mid x_{t-1}, x_0\right)=q\left(x_t \mid x_{t-1}\right) =\mathcal{N}\left(x_t ; \sqrt{\alpha_t} x_{t-1}, \beta_t \mathbf{I}\right) \propto \exp \left(-\frac{1}{2} \frac{\left(x_t-\sqrt{\alpha_t} x_{t-1}\right)^2}{\beta_t}\right)
-
 $$
 
 - 第二行的第二项用到了
@@ -179,7 +178,7 @@ $q_(\mathbf{x}\_{0})$ 是真实的数据分布，而 $p_{\theta}(\mathbf{x}\_{0}
 
 $$
 \begin{aligned}
-&L_{\mathrm{VLB}}=\mathbb{E}_{q\left(\mathbf{x}_{0: T}\right)}\left[\log \frac{q\left(\mathbf{x}_{1: T} \mid \mathbf{x}_0\right)}{p_\theta\left(\mathbf{x}_{0: T}\right)}\right]\\
+L_{\mathrm{VLB}}=\mathbb{E}_{q\left(\mathbf{x}_{0: T}\right)}\left[\log \frac{q\left(\mathbf{x}_{1: T} \mid \mathbf{x}_0\right)}{p_\theta\left(\mathbf{x}_{0: T}\right)}\right]\\
 &=\mathbb{E}_q\left[\log \frac{\prod_{t=1}^T q\left(\mathbf{x}_t \mid \mathbf{x}_{t-1}\right)}{p_\theta\left(\mathbf{x}_T\right) \prod_{t=1}^T p_\theta\left(\mathbf{x}_{t-1} \mid \mathbf{x}_t\right)}\right]\\
 &=\mathbb{E}_q\left[-\log p_\theta\left(\mathbf{x}_T\right)+\sum_{t=1}^T \log \frac{q\left(\mathbf{x}_t \mid \mathbf{x}_{t-1}\right)}{p_\theta\left(\mathbf{x}_{t-1} \mid \mathbf{x}_t\right)}\right]\\
 &=\mathbb{E}_q\left[-\log p_\theta\left(\mathbf{x}_T\right)+\sum_{t=2}^T \log \frac{q\left(\mathbf{x}_t \mid \mathbf{x}_{t-1}\right)}{p_\theta\left(\mathbf{x}_{t-1} \mid \mathbf{x}_t\right)}+\log \frac{q\left(\mathbf{x}_1 \mid \mathbf{x}_0\right)}{p_\theta\left(\mathbf{x}_0 \mid \mathbf{x}_1\right)}\right]\\
@@ -214,7 +213,7 @@ $$
 
 $L_{\mathrm{VLB}}$ 中的每一项（除了$L_{0}$）都是两个高斯分布之间的KL散度，因此他们都是可计算的。$L_{T}$ 是一个常数可以忽略，因为 $q$ 不含可学习的参数，且 $\mathbf{x}\_{T}$ 是高斯噪声。
 
-### $L_T$ 的参数化
+### $L_t$ 的参数化
 
 我们的目标是学习一个网络来近似反向过程中的条件分布 $p_\theta\left(\mathbf{x}\_{t-1} \mid \mathbf{x}\_t\right)=\mathcal{N}\left(\mathbf{x}\_{t-1} ; \boldsymbol{\mu}\_\theta\left(\mathbf{x}\_t, t\right), \mathbf{\Sigma}\_\theta\left(\mathbf{x}\_t, t\right)\right)$，我们需要找一个合适的参数化方式。
 

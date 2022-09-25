@@ -122,13 +122,13 @@ $C\left(\mathbf{x}\_t, \mathbf{x}\_0\right)$ 是一些与 $\mathbf{x}\_{t-1}$ �
 - 第二行的第一项用到了
 
 $$
-q\left(\mathbf{x}_t \mid \mathbf{x}_{t-1}, x_0\right)=q\left(\mathbf{x}_t \mid \mathbf{x}_{t-1}\right) =\mathcal{N}\left(\mathbf{x}_t ; \sqrt{\alpha_t} \mathbf{x}_{t-1}, \beta_t \mathbf{I}\right) \propto \exp \left(-\frac{1}{2} \frac{\left(\mathbf{x}_t-\sqrt{\alpha_t} \mathbf{x}_{t-1}\right)^2}{\beta_t}\right)
+q\left(\mathbf{x}\_t \mid \mathbf{x}\_{t-1}, x_0\right)=q\left(\mathbf{x}\_t \mid \mathbf{x}\_{t-1}\right) =\mathcal{N}\left(\mathbf{x}\_t ; \sqrt{\alpha\_t} \mathbf{x}\_{t-1}, \beta\_t \mathbf{I}\right) \propto \exp \left(-\frac{1}{2} \frac{\left(\mathbf{x}\_t-\sqrt{\alpha_t} \mathbf{x}\_{t-1}\right)^2}{\beta_t}\right)
 $$
 
 - 第二行的第二项用到了
 
 $$
-q\left(\mathbf{x}_{t-1} \mid x_0\right)=\mathcal{N}\left(\mathbf{x}_{t-1} ; \sqrt{\bar{\alpha}_{t-1}} x_0,\left(1-\bar{\alpha}_{t-1}\right) \mathbf{I}\right) \propto \exp \left(-\frac{1}{2} \frac{\left(\mathbf{x}_{t-1}-\sqrt{\bar{\alpha}_{t-1}} x_0\right)^2}{1-\bar{\alpha}_{t-1}}\right)
+q\left(\mathbf{x}\_{t-1} \mid x_0\right)=\mathcal{N}\left(\mathbf{x}\_{t-1} ; \sqrt{\bar{\alpha}\_{t-1}} x_0,\left(1-\bar{\alpha}\_{t-1}\right) \mathbf{I}\right) \propto \exp \left(-\frac{1}{2} \frac{\left(\mathbf{x}\_{t-1}-\sqrt{\bar{\alpha}\_{t-1}} x_0\right)^2}{1-\bar{\alpha}\_{t-1}}\right)
 $$
 
 - 第二行的第三项是将第二项中的 $t-1$ 替换为 $t$ 即可
@@ -140,7 +140,7 @@ $$
 高斯分布的方差可以表示为
 
 $$
-\tilde{\beta}_t=1 /\left(\frac{\alpha_t}{\beta_t}+\frac{1}{1-\bar{\alpha}_{t-1}}\right)=1 /\left(\frac{\alpha_t-\bar{\alpha}_t+\beta_t}{\beta_t\left(1-\bar{\alpha}_{t-1}\right)}\right)=\frac{1-\bar{\alpha}_{t-1}}{1-\bar{\alpha}_t} \cdot \beta_t
+\tilde{\beta}_t=1 /\left(\frac{\alpha_t}{\beta_t}+\frac{1}{1-\bar{\alpha}\_{t-1}}\right)=1 /\left(\frac{\alpha_t-\bar{\alpha}_t+\beta_t}{\beta_t\left(1-\bar{\alpha}\_{t-1}\right)}\right)=\frac{1-\bar{\alpha}\_{t-1}}{1-\bar{\alpha}_t} \cdot \beta_t
 $$
 
 而均值则是

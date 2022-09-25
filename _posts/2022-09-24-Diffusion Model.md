@@ -169,12 +169,12 @@ $$
 
 $$
 \begin{aligned}
-L_{\mathrm{CE}} &=-\mathbb{E}\_{q\left(\mathbf{x}\_0\right)} \log p_\theta\left(\mathbf{x}\_0\right) \\
-&=-\mathbb{E}\_{q\left(\mathbf{x}\_0\right)} \log \left(\int p_\theta\left(\mathbf{x}\_{0: T}\right) d \mathbf{x}\_{1: T}\right) \\
-&=-\mathbb{E}\_{q\left(\mathbf{x}\_0\right)} \log \left(\int q\left(\mathbf{x}\_{1: T} \mid \mathbf{x}\_0\right) \frac{p\_\theta\left(\mathbf{x}\_{0: T}\right)}{q\left(\mathbf{x}\_{1: T} \mid \mathbf{x}\_0\right)} d \mathbf{x}\_{1: T}\right) \\
-&=-\mathbb{E}\_{q\left(\mathbf{x}\_0\right)} \log \left(\mathbb{E}\_{q\left(\mathbf{x}\_{1: T} \mid \mathbf{x}\_0\right)} \frac{p_\theta\left(\mathbf{x}\_{0: T}\right)}{q\left(\mathbf{x}\_{1: T} \mid \mathbf{x}\_0\right)}\right) \\
-& \leq-\mathbb{E}\_{q\left(\mathbf{x}\_{0: T}\right)} \log \frac{p_\theta\left(\mathbf{x}\_{0: T}\right)}{q\left(\mathbf{x}\_{1: T} \mid \mathbf{x}\_0\right)} \\
-&=\mathbb{E}\_{q\left(\mathbf{x}\_{0: T}\right)}\left[\log \frac{q\left(\mathbf{x}\_{1: T} \mid \mathbf{x}\_0\right)}{p\_\theta\left(\mathbf{x}\_{0: T}\right)}\right]=L_{\mathrm{VLB}}
+L_{\mathrm{CE}} &=-\mathbb{E}_{q\left(\mathbf{x}_0\right)} \log p_\theta\left(\mathbf{x}_0\right) \\
+&=-\mathbb{E}_{q\left(\mathbf{x}_0\right)} \log \left(\int p_\theta\left(\mathbf{x}_{0: T}\right) d \mathbf{x}_{1: T}\right) \\
+&=-\mathbb{E}_{q\left(\mathbf{x}_0\right)} \log \left(\int q\left(\mathbf{x}_{1: T} \mid \mathbf{x}_0\right) \frac{p_\theta\left(\mathbf{x}_{0: T}\right)}{q\left(\mathbf{x}_{1: T} \mid \mathbf{x}_0\right)} d \mathbf{x}_{1: T}\right) \\
+&=-\mathbb{E}_{q\left(\mathbf{x}_0\right)} \log \left(\mathbb{E}_{q\left(\mathbf{x}_{1: T} \mid \mathbf{x}_0\right)} \frac{p_\theta\left(\mathbf{x}\_{0: T}\right)}{q\left(\mathbf{x}_{1: T} \mid \mathbf{x}_0\right)}\right) \\
+& \leq-\mathbb{E}_{q\left(\mathbf{x}_{0: T}\right)} \log \frac{p_\theta\left(\mathbf{x}_{0: T}\right)}{q\left(\mathbf{x}_{1: T} \mid \mathbf{x}_0\right)} \\
+&=\mathbb{E}_{q\left(\mathbf{x}_{0: T}\right)}\left[\log \frac{q\left(\mathbf{x}_{1: T} \mid \mathbf{x}_0\right)}{p_\theta\left(\mathbf{x}_{0: T}\right)}\right]=L_{\mathrm{VLB}}
 \end{aligned}
 $$
 

@@ -123,8 +123,8 @@ $C\left(\mathbf{x}\_t, \mathbf{x}\_0\right)$ 是一些与 $\mathbf{x}\_{t-1}$ �
 
 $$
 \begin{aligned}
-q\left(\mathbf{x}\_t \mid \mathbf{x}\_{t-1}, \mathbf{x}_0\right)&=q\left(\mathbf{x}\_t \mid \mathbf{x}\_{t-1}\right) =\mathcal{N}\left(\mathbf{x}\_t ; \sqrt{\alpha\_t} \mathbf{x}\_{t-1}, \beta\_t \mathbf{I}\right)\\
-&\propto \exp \left(-\frac{1}{2} \frac{\left(\mathbf{x}\_t-\sqrt{\alpha_t} \mathbf{x}\_{t-1}\right)^2}{\beta_t}\right)
+q\left(\mathbf{x}_t \mid \mathbf{x}_{t-1}, \mathbf{x}_0\right)&=q\left(\mathbf{x}_t \mid \mathbf{x}_{t-1}\right) =\mathcal{N}\left(\mathbf{x}_t ; \sqrt{\alpha_t} \mathbf{x}_{t-1}, \beta_t \mathbf{I}\right)\\
+&\propto \exp \left(-\frac{1}{2} \frac{\left(\mathbf{x}_t-\sqrt{\alpha_t} \mathbf{x}_{t-1}\right)^2}{\beta_t}\right)
 \end{aligned}
 $$
 
@@ -132,8 +132,8 @@ $$
 
 $$
 \begin{aligned}
-q\left(\mathbf{x}\_{t-1} \mid \mathbf{x}_0\right)&=\mathcal{N}\left(\mathbf{x}\_{t-1} ; \sqrt{\bar{\alpha}\_{t-1}} \mathbf{x}_0,\left(1-\bar{\alpha}\_{t-1}\right) \mathbf{I}\right)\\
-&\propto \exp \left(-\frac{1}{2} \frac{\left(\mathbf{x}\_{t-1}-\sqrt{\bar{\alpha}\_{t-1}} \mathbf{x}_0\right)^2}{1-\bar{\alpha}\_{t-1}}\right)
+q\left(\mathbf{x}_{t-1} \mid \mathbf{x}_0\right)&=\mathcal{N}\left(\mathbf{x}_{t-1} ; \sqrt{\bar{\alpha}_{t-1}} \mathbf{x}_0,\left(1-\bar{\alpha}_{t-1}\right) \mathbf{I}\right)\\
+&\propto \exp \left(-\frac{1}{2} \frac{\left(\mathbf{x}_{t-1}-\sqrt{\bar{\alpha}_{t-1}} \mathbf{x}_0\right)^2}{1-\bar{\alpha}_{t-1}}\right)
 \end{aligned}
 $$
 

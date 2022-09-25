@@ -108,9 +108,9 @@ $$
 
 $$
 \begin{aligned}
-q\left(\mathbf{x}\_{t-1} \mid \mathbf{x}\_t, \mathbf{x}\_0\right)&=q\left(\mathbf{x}\_t \mid \mathbf{x}\_{t-1}, \mathbf{x}\_0\right) \frac{q\left(\mathbf{x}\_{t-1} \mid \mathbf{x}\_0\right)}{q\left(\mathbf{x}\_t \mid \mathbf{x}\_0\right)}\\
-&\propto \exp \left(-\frac{1}{2}\left(\frac{\left(\mathbf{x}\_t-\sqrt{\alpha_t} \mathbf{x}\_{t-1}\right)^2}{\beta_t}+\frac{\left(\mathbf{x}\_{t-1}-\sqrt{\bar{\alpha}\_{t-1}} \mathbf{x}_0\right)^2}{1-\bar{\alpha}\_{t-1}}-\frac{\left(\mathbf{x}\_t-\sqrt{\bar{\alpha}\_t} \mathbf{x}_0\right)^2}{1-\bar{\alpha}\_t}\right)\right)\\
-&=\exp \left(-\frac{1}{2}\left(\frac{\mathbf{x}\_t^2-2 \sqrt{\alpha\_t} \mathbf{x}\_t \mathbf{x}\_{t-1}+\alpha_t \mathbf{x}\_{t-1}^2}{\beta_t}+\frac{\mathbf{x}\_{t-1}^2-2 \sqrt{\bar{\alpha}\_{t-1}} \mathbf{x}_0 \mathbf{x}\_{t-1}+\bar{\alpha}\_{t-1} \mathbf{x}_0^2}{1-\bar{\alpha}\_{t-1}}-\frac{\left(\mathbf{x}\_t-\sqrt{\bar{\alpha}_t} \mathbf{x}_0\right)^2}{1-\bar{\alpha}\_t}\right)\right)\\
+q\left(\mathbf{x}_{t-1} \mid \mathbf{x}_t, \mathbf{x}_0\right)&=q\left(\mathbf{x}_t \mid \mathbf{x}_{t-1}, \mathbf{x}_0\right) \frac{q\left(\mathbf{x}_{t-1} \mid \mathbf{x}_0\right)}{q\left(\mathbf{x}_t \mid \mathbf{x}_0\right)}\\
+&\propto \exp \left(-\frac{1}{2}\left(\frac{\left(\mathbf{x}_t-\sqrt{\alpha_t} \mathbf{x}_{t-1}\right)^2}{\beta_t}+\frac{\left(\mathbf{x}_{t-1}-\sqrt{\bar{\alpha}_{t-1}} \mathbf{x}_0\right)^2}{1-\bar{\alpha}_{t-1}}-\frac{\left(\mathbf{x}_t-\sqrt{\bar{\alpha}_t} \mathbf{x}_0\right)^2}{1-\bar{\alpha}_t}\right)\right)\\
+&=\exp \left(-\frac{1}{2}\left(\frac{\mathbf{x}_t^2-2 \sqrt{\alpha_t} \mathbf{x}_t \mathbf{x}_{t-1}+\alpha_t \mathbf{x}_{t-1}^2}{\beta_t}+\frac{\mathbf{x}_{t-1}^2-2 \sqrt{\bar{\alpha}_{t-1}} \mathbf{x}_0 \mathbf{x}_{t-1}+\bar{\alpha}_{t-1} \mathbf{x}_0^2}{1-\bar{\alpha}_{t-1}}-\frac{\left(\mathbf{x}_t-\sqrt{\bar{\alpha}_t} \mathbf{x}_0\right)^2}{1-\bar{\alpha}_t}\right)\right)\\
 &=\exp \left(-\frac{1}{2}\left(\left(\frac{\alpha_t}{\beta_t}+\frac{1}{1-\bar{\alpha}_{t-1}}\right) \mathbf{x}_{t-1}^2-\left(\frac{2 \sqrt{\alpha_t}}{\beta_t} \mathbf{x}_t+\frac{2 \sqrt{\bar{\alpha}_{t-1}}}{1-\bar{\alpha}_{t-1}} \mathbf{x}_0\right) \mathbf{x}_{t-1}+C\left(\mathbf{x}_t, \mathbf{x}_0\right)\right)\right)
 \end{aligned}
 $$

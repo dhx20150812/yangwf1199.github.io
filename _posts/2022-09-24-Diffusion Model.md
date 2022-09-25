@@ -77,7 +77,7 @@ $$
 
 <img src="https://raw.githubusercontent.com/dhx20150812/my-photo/main/20220925115155.png" title="" alt="" data-align="center">
 
-上述过程还有一个非常漂亮的性质，那就是我们可以直接采样任意时间 $t$ 的中间表示 $\mathbf{x}\_{t}$，而不用迭代地去计算。令 $\alpha_t=1-\beta_t$ 和 $\bar{\alpha}\_t=\prod_{i=1}^t \alpha_i$，那么我们有
+上述过程还有一个非常漂亮的性质，那就是我们可以直接采样任意时间 $t$ 的中间表示 $\mathbf{x}\_{t}$，而不用迭代地去计算。令 $\alpha_t=1-\beta_t$ 和 $\bar{\alpha}\_t=\prod_{i=1}^{t} \alpha_i$，那么我们有
 
 $$
 \begin{aligned}
@@ -122,13 +122,13 @@ $C\left(\mathbf{x}\_t, \mathbf{x}\_0\right)$ 是一些与 $\mathbf{x}\_{t-1}$ �
 - 第二行的第一项用到了
 
 $$
-q\left(x_t \mid x_{t-1}, x_0\right)=q\left(x_t \mid x_{t-1}\right) =\mathcal{N}\left(x_t ; \sqrt{\alpha_t} x_{t-1}, \beta_t \mathbf{I}\right) \propto \exp \left(-\frac{1}{2} \frac{\left(x_t-\sqrt{\alpha_t} x_{t-1}\right)^2}{\beta_t}\right)
+q\left(\mathbf{x}_t \mid \mathbf{x}_{t-1}, x_0\right)=q\left(\mathbf{x}_t \mid \mathbf{x}_{t-1}\right) =\mathcal{N}\left(\mathbf{x}_t ; \sqrt{\alpha_t} \mathbf{x}_{t-1}, \beta_t \mathbf{I}\right) \propto \exp \left(-\frac{1}{2} \frac{\left(\mathbf{x}_t-\sqrt{\alpha_t} \mathbf{x}_{t-1}\right)^2}{\beta_t}\right)
 $$
 
 - 第二行的第二项用到了
 
 $$
-q\left(x_{t-1} \mid x_0\right)=\mathcal{N}\left(x_{t-1} ; \sqrt{\bar{\alpha}_{t-1}} x_0,\left(1-\bar{\alpha}_{t-1}\right) \mathbf{I}\right) \propto \exp \left(-\frac{1}{2} \frac{\left(x_{t-1}-\sqrt{\bar{\alpha}_{t-1}} x_0\right)^2}{1-\bar{\alpha}_{t-1}}\right)
+q\left(\mathbf{x}_{t-1} \mid x_0\right)=\mathcal{N}\left(\mathbf{x}_{t-1} ; \sqrt{\bar{\alpha}_{t-1}} x_0,\left(1-\bar{\alpha}_{t-1}\right) \mathbf{I}\right) \propto \exp \left(-\frac{1}{2} \frac{\left(\mathbf{x}_{t-1}-\sqrt{\bar{\alpha}_{t-1}} x_0\right)^2}{1-\bar{\alpha}_{t-1}}\right)
 $$
 
 - 第二行的第三项是将第二项中的 $t-1$ 替换为 $t$ 即可
@@ -147,13 +147,13 @@ $$
 
 $$
 \begin{aligned}
-\tilde{\mu}_t\left(x_t, x_0\right) &=\frac{\sqrt{\alpha_t}\left(1-\bar{\alpha}_{t-1}\right)}{1-\bar{\alpha}_t} x_t+\frac{\sqrt{\bar{\alpha}_{t-1}} \beta_t}{1-\bar{\alpha}_t} x_0 \\
-&=\frac{\sqrt{\alpha_t}\left(1-\bar{\alpha}_{t-1}\right)}{1-\bar{\alpha}_t} x_t+\frac{\sqrt{\bar{\alpha}_{t-1}} \beta_t}{1-\bar{\alpha}_t} \cdot \frac{1}{\sqrt{\bar{\alpha}_t}}\left(x_t-\sqrt{1-\bar{\alpha}_t} z_t\right) \\
-&=\frac{\sqrt{\alpha_t} \cdot \sqrt{\alpha_t}\left(1-\bar{\alpha}_{t-1}\right)}{\sqrt{\alpha_t} \cdot\left(1-\bar{\alpha}_t\right)} x_t+\frac{\sqrt{\bar{\alpha}_{t-1}} \beta_t}{1-\bar{\alpha}_t} \cdot \frac{1}{\sqrt{\bar{\alpha}_t}}\left(x_t-\sqrt{1-\bar{\alpha}_t} z_t\right) \\
-&=\frac{\alpha_t-\bar{\alpha}_t}{\sqrt{\alpha_t}\left(1-\bar{\alpha}_t\right)} x_t+\frac{\beta_t}{\left(1-\bar{\alpha}_t\right) \sqrt{\alpha_t}}\left(x_t-\sqrt{1-\bar{\alpha}_t} z_t\right) \\
-&=\frac{1-\bar{\alpha}_t}{\sqrt{\alpha_t}\left(1-\bar{\alpha}_t\right)} x_t-\frac{\beta_t}{\left(1-\bar{\alpha}_t\right) \sqrt{\alpha_t}}\left(\sqrt{1-\bar{\alpha}_t} z_t\right) \\
-&=\frac{1}{\sqrt{\alpha_t}} x_t-\frac{\beta_t}{\sqrt{\left(1-\bar{\alpha}_t\right)} \sqrt{\alpha_t}} z_t \\
-&=\frac{1}{\sqrt{\alpha_t}}\left(x_t-\frac{\beta_t}{\sqrt{\left(1-\bar{\alpha}_t\right)}} z_t\right)
+\tilde{\mu}_t\left(\mathbf{x}_t, \mathbf{x}_0\right) &=\frac{\sqrt{\alpha_t}\left(1-\bar{\alpha}_{t-1}\right)}{1-\bar{\alpha}_t} \mathbf{x}_t+\frac{\sqrt{\bar{\alpha}_{t-1}} \beta_t}{1-\bar{\alpha}_t} \mathbf{x}_0 \\
+&=\frac{\sqrt{\alpha_t}\left(1-\bar{\alpha}_{t-1}\right)}{1-\bar{\alpha}_t} \mathbf{x}_t+\frac{\sqrt{\bar{\alpha}_{t-1}} \beta_t}{1-\bar{\alpha}_t} \cdot \frac{1}{\sqrt{\bar{\alpha}_t}}\left(\mathbf{x}_t-\sqrt{1-\bar{\alpha}_t} z_t\right) \\
+&=\frac{\sqrt{\alpha_t} \cdot \sqrt{\alpha_t}\left(1-\bar{\alpha}_{t-1}\right)}{\sqrt{\alpha_t} \cdot\left(1-\bar{\alpha}_t\right)} \mathbf{x}_t+\frac{\sqrt{\bar{\alpha}_{t-1}} \beta_t}{1-\bar{\alpha}_t} \cdot \frac{1}{\sqrt{\bar{\alpha}_t}}\left(\mathbf{x}_t-\sqrt{1-\bar{\alpha}_t} z_t\right) \\
+&=\frac{\alpha_t-\bar{\alpha}_t}{\sqrt{\alpha_t}\left(1-\bar{\alpha}_t\right)} \mathbf{x}_t+\frac{\beta_t}{\left(1-\bar{\alpha}_t\right) \sqrt{\alpha_t}}\left(x_t-\sqrt{1-\bar{\alpha}_t} z_t\right) \\
+&=\frac{1-\bar{\alpha}_t}{\sqrt{\alpha_t}\left(1-\bar{\alpha}_t\right)} \mathbf{x}_t-\frac{\beta_t}{\left(1-\bar{\alpha}_t\right) \sqrt{\alpha_t}}\left(\sqrt{1-\bar{\alpha}_t} z_t\right) \\
+&=\frac{1}{\sqrt{\alpha_t}} \mathbf{x}_t-\frac{\beta_t}{\sqrt{\left(1-\bar{\alpha}_t\right)} \sqrt{\alpha_t}} z_t \\
+&=\frac{1}{\sqrt{\alpha_t}}\left(\mathbf{x}_t-\frac{\beta_t}{\sqrt{\left(1-\bar{\alpha}_t\right)}} z_t\right)
 \end{aligned}
 $$
 

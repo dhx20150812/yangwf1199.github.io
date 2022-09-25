@@ -77,7 +77,7 @@ $$
 
 <img src="https://raw.githubusercontent.com/dhx20150812/my-photo/main/20220925115155.png" title="" alt="" data-align="center">
 
-上述过程还有一个非常漂亮的性质，那就是我们可以直接采样任意时间 $t$ 的中间表示 $\mathbf{x}\_{t}$，而不用迭代地去计算。令 $\alpha_t=1-\beta_t$ 和 $\bar{\alpha}\_t=\prod_{i=1}^{t} \alpha_i$，那么我们有
+上述过程还有一个非常漂亮的性质，那就是我们可以直接采样任意时间 $t$ 的中间表示 $\mathbf{x}\_{t}$，而不用迭代地去计算。令 $\alpha_t=1-\beta_t$ 和 $\bar{\alpha}\_t=\prod^{t}\_{i=1}\alpha_i$，那么我们有
 
 $$
 \begin{aligned}

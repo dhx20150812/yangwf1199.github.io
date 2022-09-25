@@ -81,30 +81,30 @@ $$
 
 $$
 \begin{aligned}
-&\mathbf{x}\_t=\sqrt{\alpha\_t} \mathbf{x}\_{t-1}+\sqrt{1-\alpha\_t} \mathbf{z}\_{t-1}\\
-&=\sqrt{\alpha_t \alpha\_{t-1}} \mathbf{x}\_{t-2}+\underbrace{\sqrt{\alpha_t\left(1-\alpha\_{t-1}\right)} \mathbf{z}\_{t-2}+\sqrt{1-\alpha_t} \mathbf{z}\_{t-1}}_{=\sqrt{1-\alpha_t \alpha\_{t-1}} \overline{\mathbf{z}}\_{t-1}}\\
+&\mathbf{x}_t=\sqrt{\alpha_t} \mathbf{x}_{t-1}+\sqrt{1-\alpha_t} \mathbf{z}_{t-1}\\
+&=\sqrt{\alpha_t \alpha_{t-1}} \mathbf{x}_{t-2}+\underbrace{\sqrt{\alpha_t\left(1-\alpha_{t-1}\right)} \mathbf{z}_{t-2}+\sqrt{1-\alpha_t} \mathbf{z}_{t-1}}_{=\sqrt{1-\alpha_t \alpha_{t-1}} \overline{\mathbf{z}}_{t-1}}\\
 &=\ldots\\
-&=\sqrt{\bar{\alpha}\_t} \mathbf{x}_0+\sqrt{1-\bar{\alpha}\_t} \overline{\mathbf{z}}\_{t-1}
+&=\sqrt{\bar{\alpha}_t} \mathbf{x}_0+\sqrt{1-\bar{\alpha}_t} \overline{\mathbf{z}}_{t-1}
 \end{aligned}
 $$
 
-其中 $\mathbf{z}\_{t-1}, \mathbf{z}\_{t-2}, \cdots \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$。
+其中 $\mathbf{z}_{t-1}, \mathbf{z}_{t-2}, \cdots \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$。
 
 通常来说，前向过程中有 $\beta_1<\beta_2<\ldots<\beta_T$，也就是说破坏力度是越来越大的。相应的有 $\alpha_1>\alpha_2>\ldots>\alpha_T$。
 
 ### 反向过程
 
-如果我们反转上述过程，并从 $q(\mathbf{x}\_{t-1} \mid \mathbf{x}\_{t})$ 中进行采样，那么就可以从一个高斯噪音 $\mathbf{x}\_T \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$ 出发，逐步采样出 $\mathbf{x}\_{T-1}, \mathbf{x}\_{T-2}, \cdots, \mathbf{x}\_1$，最终解码得到数据样本 $\mathbf{x}\_{0}=\mathbf{x}$。
+如果我们反转上述过程，并从 $q(\mathbf{x}_{t-1} \mid \mathbf{x}_{t})$ 中进行采样，那么就可以从一个高斯噪音 $\mathbf{x}_T \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$ 出发，逐步采样出 $\mathbf{x}_{T-1}, \mathbf{x}_{T-2}, \cdots, \mathbf{x}_1$，最终解码得到数据样本 $\mathbf{x}_{0}=\mathbf{x}$。
 
 如果直接使用贝叶斯公式
 
 $$
-q \left(\mathbf{x}\_{t-1} \mid \mathbf{x}\_t\right)=\frac{q\left(\mathbf{x}\_t \mid \mathbf{x}\_{t-1}\right) q\left(\mathbf{x}\_{t-1}\right)}{q\left(\mathbf{x}\_t\right)}
+q \left(\mathbf{x}_{t-1} \mid \mathbf{x}_t\right)=\frac{q\left(\mathbf{x}_t \mid \mathbf{x}_{t-1}\right) q\left(\mathbf{x}_{t-1}\right)}{q\left(\mathbf{x}_t\right)}
 $$
 
-但是我们无法求得 $q(\mathbf{x}\_{t-1})$ 和 $q(\mathbf{x}\_{t-1})$，因此也无法直接根据前向的过程 $q\left(\mathbf{x}\_t \mid \mathbf{x}\_{t-1}\right)$ 直接求得反向的过程。
+但是我们无法求得 $q(\mathbf{x}_{t-1})$ 和 $q(\mathbf{x}_{t-1})$，因此也无法直接根据前向的过程 $q\left(\mathbf{x}_t \mid \mathbf{x}_{t-1}\right)$ 直接求得反向的过程。
 
-但是注意到，如果我们可以给定 $\mathbf{x}\_{0}$，在这个条件下使用贝叶斯，那么
+但是注意到，如果我们可以给定 $\mathbf{x}_{0}$，在这个条件下使用贝叶斯，那么
 
 $$
 \begin{aligned}
@@ -178,7 +178,7 @@ $q_(\mathbf{x}\_{0})$ 是真实的数据分布，而 $p_{\theta}(\mathbf{x}\_{0}
 
 $$
 \begin{aligned}
-L_{\mathrm{VLB}}=\mathbb{E}_{q\left(\mathbf{x}_{0: T}\right)}\left[\log \frac{q\left(\mathbf{x}_{1: T} \mid \mathbf{x}_0\right)}{p_\theta\left(\mathbf{x}_{0: T}\right)}\right]\\
+L_{\mathrm{VLB}}&=\mathbb{E}_{q\left(\mathbf{x}_{0: T}\right)}\left[\log \frac{q\left(\mathbf{x}_{1: T} \mid \mathbf{x}_0\right)}{p_\theta\left(\mathbf{x}_{0: T}\right)}\right]\\
 &=\mathbb{E}_q\left[\log \frac{\prod_{t=1}^T q\left(\mathbf{x}_t \mid \mathbf{x}_{t-1}\right)}{p_\theta\left(\mathbf{x}_T\right) \prod_{t=1}^T p_\theta\left(\mathbf{x}_{t-1} \mid \mathbf{x}_t\right)}\right]\\
 &=\mathbb{E}_q\left[-\log p_\theta\left(\mathbf{x}_T\right)+\sum_{t=1}^T \log \frac{q\left(\mathbf{x}_t \mid \mathbf{x}_{t-1}\right)}{p_\theta\left(\mathbf{x}_{t-1} \mid \mathbf{x}_t\right)}\right]\\
 &=\mathbb{E}_q\left[-\log p_\theta\left(\mathbf{x}_T\right)+\sum_{t=2}^T \log \frac{q\left(\mathbf{x}_t \mid \mathbf{x}_{t-1}\right)}{p_\theta\left(\mathbf{x}_{t-1} \mid \mathbf{x}_t\right)}+\log \frac{q\left(\mathbf{x}_1 \mid \mathbf{x}_0\right)}{p_\theta\left(\mathbf{x}_0 \mid \mathbf{x}_1\right)}\right]\\
@@ -260,8 +260,8 @@ $$
 
 - [Deep Diffusion Model 学习笔记 – RaymondKevin's Records](https://raymondkevin.top/2022/04/10/deep-diffusion-model-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/)
 
-- [What are Diffusion Models? | Lil'Log (lilianweng.github.io)](https://lilianweng.github.io/posts/2021-07-11-diffusion-models)
+- [What are Diffusion Models? Lil'Log (lilianweng.github.io)](https://lilianweng.github.io/posts/2021-07-11-diffusion-models)
 
 - [Diffusion Models for Deep Generative Learning (notion.site)](https://zaixiang.notion.site/24ccc2e2a11e40699723b277a7ebdd64#f36d5e98bf314843b096428da94e8505)
 
-- [生成扩散模型漫谈（三）：DDPM = 贝叶斯 + 去噪 - 科学空间|Scientific Spaces](https://spaces.ac.cn/archives/9164)
+- [生成扩散模型漫谈（三）：DDPM = 贝叶斯 + 去噪 - 科学空间](https://spaces.ac.cn/archives/9164)
